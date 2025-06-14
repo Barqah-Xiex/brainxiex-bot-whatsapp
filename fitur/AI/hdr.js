@@ -1,0 +1,1 @@
+module.exports = {...require("./remini"), cmd: "hdr"};

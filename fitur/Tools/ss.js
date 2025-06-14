@@ -1,0 +1,1 @@
+module.exports = {...require(`./screenshot.js`),cmd: `ss`};
