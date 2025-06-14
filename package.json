@@ -1,0 +1,27 @@
+{
+  "name": "brainxiexbot",
+  "version": "1.2.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "awesome-phonenumber": "^6.4.0",
+    "axios": "^1.8.4",
+    "bx-baileys": "^6.11.2",
+    "child_process": "^1.0.2",
+    "image-to-base64": "^2.2.0",
+    "jimp": "^0.16.13",
+    "libphonenumber-js": "^1.11.3",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "mysql": "^2.18.1",
+    "open": "^10.1.0",
+    "qrcode": "^1.5.3",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
