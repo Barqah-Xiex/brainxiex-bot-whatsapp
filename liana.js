@@ -554,9 +554,7 @@ async function connjs(config) {
     } = await useMultiFileAuthState(`${session||`session`}`)//,(info) => console.info(warna(`biru_muda`,info)))
 
     let logger = pino({ level: "silent" });
-    // let browser = ['Barqah Ganteng', 'Android', '12.12.20'];
-    let browser = config.usecode ? ["Windows", "Chrome", "Chrome 114.0.5735.198"]||['Ubuntu', 'Chrome', '22.0.04'] : ['Barqah Ganteng', 'Android', '12.12.20'];
-    browser = Browsers.windows("Desktop")
+    let browser = ["Windows", "Chrome", "Chrome 114.0.5735.198"];
     let auth = state;
     let patchMessageBeforeSending = (message) => {
         const requiresPatch = !!(
@@ -615,7 +613,7 @@ async function connjs(config) {
     
     liana.getPairingCode = (...arg) => new Promise(async (acc,rej) => {
         for (;true;) {
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 1500));
             if(!liana.ws.isOpen) continue;
             const pairing = await liana.requestPairingCode(...arg).catch(console.error);
             acc(pairing);
@@ -641,9 +639,11 @@ async function connjs(config) {
             `${config.custom_pairing}12345678`.toLocaleUpperCase().slice(0,8) :
             undefined;
         if(customPairing) console.log(warna("hijau",`Menggunakan Custom Pairing Code !`),warna("merah",customPairing));
-        _qr = await liana.requestPairingCode(nomorbot,customPairing);
-        _qr = _qr?.match(/.{1,4}/g)?.join('-') || _qr;
-        console.log(`${warna("biru","Bot")}${warna("merah",":")} ${warna("hijau",nomorbot)} ${warna("merah","|")} ${warna("biru","Code")}${warna("merah",":")} ${warna("hijau",_qr)}`)
+        liana.getPairingCode(nomorbot,customPairing).then(qr => {
+            _qr = qr;
+            _qr = _qr?.match(/.{1,4}/g)?.join('-') || _qr;
+            console.log(`${warna("biru","Bot")}${warna("merah",":")} ${warna("hijau",nomorbot)} ${warna("merah","|")} ${warna("biru","Code")}${warna("merah",":")} ${warna("hijau",_qr)}`)
+        });
     }
 
     liana.ev.on(`connection.update`, async function(json) {
