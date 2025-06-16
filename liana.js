@@ -630,27 +630,28 @@ async function connjs(config) {
 
     
     
+    if(config.usecode) console.log(warna("hijau",`Mengugnakan Pairing Code !`));
+    if(config.printQRInTerminal) console.log(warna("hijau",`Menggunakan Print QR di Terminal !`));
+    if(!config.usecode) console.log(warna("hijau",`Menggunakan QR Code !`));
+
+    if(config.usecode && !liana.authState.creds.registered){
+        await sleep(3000);
+        const nomorbot=`${config.Nomor_Bot}`.trim();
+        const customPairing = isset(config.custom_pairing) ?
+            `${config.custom_pairing}12345678`.toLocaleUpperCase().slice(0,8) :
+            undefined;
+        if(customPairing) console.log(warna("hijau",`Menggunakan Custom Pairing Code !`),warna("merah",customPairing));
+        _qr = await liana.requestPairingCode(nomorbot,customPairing);
+        _qr = _qr?.match(/.{1,4}/g)?.join('-') || _qr;
+        console.log(`${warna("biru","Bot")}${warna("merah",":")} ${warna("hijau",nomorbot)} ${warna("merah","|")} ${warna("biru","Code")}${warna("merah",":")} ${warna("hijau",_qr)}`)
+    }
+    
     liana.ev.on(`connection.update`, async function(json) {
         json.botNumber = Nomor_Bot;
         // console.log(json)
         const {connection, qr, isNewLogin, lastDisconnect} = json;
         
         if (qr) {
-            if(config.usecode) console.log(warna("hijau",`Mengugnakan Pairing Code !`));
-            if(config.printQRInTerminal) console.log(warna("hijau",`Menggunakan Print QR di Terminal !`));
-            if(!config.usecode) console.log(warna("hijau",`Menggunakan QR Code !`));
-
-            if(config.usecode && !liana.authState.creds.registered){
-                await sleep(3000);
-                const nomorbot=`${config.Nomor_Bot}`.trim();
-                const customPairing = isset(config.custom_pairing) ?
-                    `${config.custom_pairing}12345678`.toLocaleUpperCase().slice(0,8) :
-                    undefined;
-                if(customPairing) console.log(warna("hijau",`Menggunakan Custom Pairing Code !`),warna("merah",customPairing));
-                _qr = await liana.requestPairingCode(nomorbot,customPairing);
-                _qr = _qr?.match(/.{1,4}/g)?.join('-') || _qr;
-                console.log(`${warna("biru","Bot")}${warna("merah",":")} ${warna("hijau",nomorbot)} ${warna("merah","|")} ${warna("biru","Code")}${warna("merah",":")} ${warna("hijau",_qr)}`)
-            }
 
             if(!config.usecode && !config.mobile) {
                 _qr = qr;
