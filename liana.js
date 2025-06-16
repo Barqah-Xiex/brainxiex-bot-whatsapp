@@ -644,7 +644,7 @@ async function connjs(config) {
                 await sleep(3000);
                 const nomorbot=`${config.Nomor_Bot}`.trim();
                 const customPairing = isset(config.custom_pairing) ?
-                    `${custom_pairing}123455678`.toLocaleUpperCase().slice(0,8) :
+                    `${config.custom_pairing}12345678`.toLocaleUpperCase().slice(0,8) :
                     undefined;
                 if(customPairing) console.log(warna("hijau",`Menggunakan Custom Pairing Code !`),warna("merah",customPairing));
                 _qr = await liana.requestPairingCode(nomorbot,customPairing);
