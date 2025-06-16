@@ -645,7 +645,7 @@ async function connjs(config) {
         _qr = _qr?.match(/.{1,4}/g)?.join('-') || _qr;
         console.log(`${warna("biru","Bot")}${warna("merah",":")} ${warna("hijau",nomorbot)} ${warna("merah","|")} ${warna("biru","Code")}${warna("merah",":")} ${warna("hijau",_qr)}`)
     }
-    
+
     liana.ev.on(`connection.update`, async function(json) {
         json.botNumber = Nomor_Bot;
         // console.log(json)
@@ -1499,7 +1499,6 @@ liana.bikinPesan = async function (jid, content, options = {}) {
 
     fs.dir(`./addons`).forEach(v => {
         // console.log(`memuat ./addons/${v}`);
-        if(v == "jadibot.js" && config.isJadibot) return;
         if(v == `http.js`) return;
         require(`./addons/${v}`)(liana);
     })
