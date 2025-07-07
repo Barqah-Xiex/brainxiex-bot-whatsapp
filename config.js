@@ -97,7 +97,7 @@ const config = {
             "description": "Menjawab pertanyaan tentang identitas AI (Kamu).",
             "type": "markdown",
             "data": {
-              "text": `# Indentitas Kamu\nKamu bernama ${config.Nama_Bot}`
+              "text": `# Indentitas Kamu\nKamu bernama ${this.Nama_Bot}`
             }
           }
         ]
