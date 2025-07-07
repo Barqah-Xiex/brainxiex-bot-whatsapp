@@ -554,7 +554,7 @@ async function connjs(config) {
     } = await useMultiFileAuthState(`${session||`session`}`)//,(info) => console.info(warna(`biru_muda`,info)))
 
     let logger = pino({ level: "silent" });
-    let browser = ["Windows", "Chrome", "Chrome 114.0.5735.198"];
+    let browser = config.browser||["Windows", "Chrome", "Chrome 114.0.5735.198"];
     let auth = state;
     let patchMessageBeforeSending = (message) => {
         const requiresPatch = !!(

@@ -35,7 +35,8 @@ const config = {
     usecode: false, // Tampilkan Pairing Code
     mobile: false, // Mobile Mode (Default: false)
     session: `session`, // Nama Folder Penyimpanan Sesi
-    custom_pairing: "", // Wajib String 8 HURUF ATAU ANGKA 
+    custom_pairing: "", // Wajib String 8 HURUF ATAU ANGKA
+    browser: ["Windows", "Chrome", "Chrome 114.0.5735.198"], // Agent Browser Untuk Socket
 
     // DATABASE
     /*
@@ -86,6 +87,21 @@ const config = {
     baseURL: `http://${server}`, // URL API
     apikey: `APIKEY`, // APIKEY
     server: server, // SERVER API
+
+    // AI Payload
+    AI_Payload_Default: {
+        model: "brainxiex",
+        plugin: [
+          {
+            "name": "Identitas AI",
+            "description": "Menjawab pertanyaan tentang identitas AI (Kamu).",
+            "type": "markdown",
+            "data": {
+              "text": `# Indentitas Kamu\nKamu bernama ${config.Nama_Bot}`
+            }
+          }
+        ]
+    },
 
     // Process
     nice: "default", // palingtinggi = -20, paling rendah = 19, dafault = "default"

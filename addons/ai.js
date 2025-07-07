@@ -33,9 +33,10 @@ module.exports = function (Barqah){
         try{
             messages.push({role:'user',content:prompt});
             const data = await axios.post(baseURL+"/api/ai/chat/completions",{
+                ...config.AI_Payload_Default,
                 yourname: `${m.pushName||m.nomor}`,
                 messages,
-                model,
+                model: config.AI_Payload_Default.model || model,
                 legacy
             },{
                 headers: {
