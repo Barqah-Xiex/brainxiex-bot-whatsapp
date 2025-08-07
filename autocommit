@@ -3,7 +3,7 @@
 # Mendapatkan direktori kerja saat ini
 REPO_DIR="$(pwd)"
 
-git remote add origin https://git.xiex.my.id/barqah/brainxiex-bot-whatsapp.git
+git remote add origin https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git
 
 # Masuk ke direktori repository
 cd "$REPO_DIR" || { echo "Direktori tidak ditemukan"; exit 1; }
