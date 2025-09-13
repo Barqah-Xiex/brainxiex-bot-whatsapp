@@ -2,7 +2,8 @@
 const package = require("./package.json");
 global["version"] = package.version.split(".")
 _qr = ``
-
+global._qr = _qr;
+_qr = global._qr;
 
 
 const pino = require('pino')
