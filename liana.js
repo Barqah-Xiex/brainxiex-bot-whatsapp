@@ -76,7 +76,7 @@ async function connjs(config) {
                 _qr = qr;
                 say(`Scann QR di Aplikasi WhatsApp di bagian Perangkat Tertaut`);
                 const _qrcodewa = await qrcode.toString(_qr);
-                console.log(warna("pink",_qrcodewa));
+                console.log(`${warna("bg_reset",warna("pink",`${warna("cyan",`QR Untuk ${json.botNumber}`)}\n${_qrcodewa}`))}`);
             }
         }
 

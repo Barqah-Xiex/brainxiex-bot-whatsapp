@@ -50,6 +50,7 @@ async function message(sock, m, store) {
 👤 Username: ${info.username || '-'}
 🆔 ID: ${info.id || '-'}
 💬 Status: ${userPresences?.status || '-'}${userPresences?.lastLocation ? ` (${userPresences.lastLocation})` : ''}
+📍 Main Bareng: ${userPresences.GameURL ?? "-"}
 📅 Bergabung: ${joined}
 🎂 Umur: ${info.age ?? '-'}
 🤝 Teman: ${info.friendCount ?? '-'}
