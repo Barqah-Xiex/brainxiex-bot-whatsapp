@@ -21,7 +21,7 @@ async function message(sock, m, store) {
         const social = Object.entries(socialLinks || {})
             .filter(([,v]) => v)
             .map(([k,v]) => `${k}: ${v}`)
-            .join(' | ') || '-';
+            .join('\n') || '-';
             const assets = (avatar && Array.isArray(avatar.assets)) ? avatar.assets : [];
             const assetsCount = assets.length;
 
@@ -42,32 +42,39 @@ async function message(sock, m, store) {
 
             const avatarType = avatar?.playerAvatarType || '-';
             const scales = avatar?.scales ? `H:${avatar.scales.height ?? '-'} W:${avatar.scales.width ?? '-'} Head:${avatar.scales.head ?? '-'}` : '-';
-            const bodyColors = avatar?.bodyColors ? Object.entries(avatar.bodyColors).map(([k,v]) => `${k}:${v}`).join(', ') : '-';
+            const bodyColors = avatar?.bodyColors ? Object.entries(avatar.bodyColors).map(([k,v]) => `- ${k}:${v}`).join('\n') : '-';
 
-            const caption = `Roblox Stalk — Informasi Pengguna
+            const caption = `*🔎 Roblox Stalk — Informasi Pengguna*
 
-Nama: ${info.name || '-'} (${info.displayName || '-'})
-Username: ${info.username || '-'}
-ID: ${info.id || '-'}
-Status: ${userPresences?.status || '-'}${userPresences?.lastLocation ? ` (${userPresences.lastLocation})` : ''}
-Bergabung: ${joined}
-Umur: ${info.age ?? '-'}
-Teman: ${info.friendCount ?? '-'} | Pengikut: ${info.followerCount ?? '-'} | Mengikuti: ${info.followingCount ?? '-'}
-Terverifikasi: ${info.hasVerifiedBadge ? 'Ya' : 'Tidak'}
-Diblokir: ${info.isBanned ? 'Ya' : 'Tidak'}
+🧑‍💻 Nama: ${info.name || '-'} (${info.displayName || '-'})
+👤 Username: ${info.username || '-'}
+🆔 ID: ${info.id || '-'}
+💬 Status: ${userPresences?.status || '-'}${userPresences?.lastLocation ? ` (${userPresences.lastLocation})` : ''}
+📅 Bergabung: ${joined}
+🎂 Umur: ${info.age ?? '-'}
+🤝 Teman: ${info.friendCount ?? '-'}
+👥 Pengikut: ${info.followerCount ?? '-'}
+➕ Mengikuti: ${info.followingCount ?? '-'}
+✅ Terverifikasi: ${info.hasVerifiedBadge ? 'Ya' : 'Tidak'}
+⛔ Diblokir: ${info.isBanned ? 'Ya' : 'Tidak'}
 
-Bio: ${info.blurb || info.description || '-'}
+📝 Bio: ${info.blurb || info.description || '-'}
 
-Sosial: ${social}
-Previous Usernames: ${prev}
+🌐 Sosial:
+${social}
 
-Avatar:
-- Tipe: ${avatarType}
-- Skala: ${scales}
-- Warna Tubuh: ${bodyColors}
-- Aset Terpasang: ${assetsCount}
+🔁 Previous Usernames: ${prev}
 
-Aset per Kategori:
+🧍‍♀️ Avatar:
+🏷️ Tipe: ${avatarType}
+🎛️ Skala: ${scales}
+🎒 Aset Terpasang: ${assetsCount}
+
+🎨 Warna Tubuh:
+${bodyColors}
+
+
+📂 Aset per Kategori:
 ${assetsByCategory}`;
 
     	await sendMessage(id,{image: {url},caption},{quoted: m});
