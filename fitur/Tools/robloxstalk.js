@@ -44,32 +44,31 @@ async function message(sock, m, store) {
             const scales = avatar?.scales ? `H:${avatar.scales.height ?? '-'} W:${avatar.scales.width ?? '-'} Head:${avatar.scales.head ?? '-'}` : '-';
             const bodyColors = avatar?.bodyColors ? Object.entries(avatar.bodyColors).map(([k,v]) => `${k}:${v}`).join(', ') : '-';
 
-            const caption = 
-            `Roblox Stalk — Informasi Pengguna
+            const caption = `Roblox Stalk — Informasi Pengguna
 
-            Nama: ${info.name || '-'} (${info.displayName || '-'})
-            Username: ${info.username || '-'}
-            ID: ${info.id || '-'}
-            Status: ${userPresences?.status || '-'}${userPresences?.lastLocation ? ` (${userPresences.lastLocation})` : ''}
-            Bergabung: ${joined}
-            Umur: ${info.age ?? '-'}
-            Teman: ${info.friendCount ?? '-'} | Pengikut: ${info.followerCount ?? '-'} | Mengikuti: ${info.followingCount ?? '-'}
-            Terverifikasi: ${info.hasVerifiedBadge ? 'Ya' : 'Tidak'}
-            Diblokir: ${info.isBanned ? 'Ya' : 'Tidak'}
+Nama: ${info.name || '-'} (${info.displayName || '-'})
+Username: ${info.username || '-'}
+ID: ${info.id || '-'}
+Status: ${userPresences?.status || '-'}${userPresences?.lastLocation ? ` (${userPresences.lastLocation})` : ''}
+Bergabung: ${joined}
+Umur: ${info.age ?? '-'}
+Teman: ${info.friendCount ?? '-'} | Pengikut: ${info.followerCount ?? '-'} | Mengikuti: ${info.followingCount ?? '-'}
+Terverifikasi: ${info.hasVerifiedBadge ? 'Ya' : 'Tidak'}
+Diblokir: ${info.isBanned ? 'Ya' : 'Tidak'}
 
-            Bio: ${info.blurb || info.description || '-'}
+Bio: ${info.blurb || info.description || '-'}
 
-            Sosial: ${social}
-            Previous Usernames: ${prev}
+Sosial: ${social}
+Previous Usernames: ${prev}
 
-            Avatar:
-            - Tipe: ${avatarType}
-            - Skala: ${scales}
-            - Warna Tubuh: ${bodyColors}
-            - Aset Terpasang: ${assetsCount}
+Avatar:
+- Tipe: ${avatarType}
+- Skala: ${scales}
+- Warna Tubuh: ${bodyColors}
+- Aset Terpasang: ${assetsCount}
 
-            Aset per Kategori:
-            ${assetsByCategory}`;
+Aset per Kategori:
+${assetsByCategory}`;
 
     	await sendMessage(id,{image: {url},caption},{quoted: m});
     }catch(e){
