@@ -15,7 +15,7 @@ async function message(sock, m, store) {
         const {data:{Barqah}} = await sock.sendRequest(m).post(`${baseURL}/api/tools/robloxstalk`,{apikey,username:arg});
 
         const {info, userPresences, image, socialLinks, avatar} = Barqah;
-        const url = (image && (image.headshot || image.body || image.bust)) || '';
+        const url = (image && (image.body || image.bust || image.headshot)) || '';
         const prev = (info.previousUsernames && info.previousUsernames.length) ? info.previousUsernames.join(', ') : '-';
         const joined = info.joinDate ? new Date(info.joinDate).toLocaleString('id-ID') : (info.created ? new Date(info.created).toLocaleString('id-ID') : '-');
         const social = Object.entries(socialLinks || {})
