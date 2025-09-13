@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 
-const cmd = `fb`; 
+const cmd = `reels`; 
 const args = `[url video facebook]`;
 const category = `Downloader`;
 async function message(sock, m, store) {
