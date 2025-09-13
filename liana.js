@@ -34,6 +34,7 @@ async function connjs(config) {
     console.log(warna('merah', 'Menghapus file sampah...'));
     fs.dir(`./temp`).forEach(v => {
         fs.del(`./temp/${v}`);
+        fs.save(`./temp/.hapus-aja-gpp`,"");
         console.log(warna('merah', `Menghapus: ./temp/${v}`));
     });
 
