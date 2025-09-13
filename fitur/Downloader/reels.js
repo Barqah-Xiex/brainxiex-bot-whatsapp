@@ -12,18 +12,18 @@ async function message(sock, m, store) {
     if(isset(arg)){
         await sock.sendPresenceUpdate('recording', id);
         const url = `${arg}`;
-        const {data,error} = await sock.sendRequest(m).post(`${baseURL}/api/downloader/facebook`,{apikey,url},{ responseType: 'arraybuffer' }).catch(v => ({data: v,error:true}));
+        const {data,error} = await sock.sendRequest(m).post(`${baseURL}/api/downloader/reels`,{apikey,url}).catch(v => ({data: v,error:true}));
         if(error){
             nyarios(`Error.\n\n${data.message}`);
             await sock.sendPresenceUpdate('available', id);
             return;
         }
-        await sendMessage(id,{video: data, caption: `*xiex.my.id/api*\n\napi by xiex.my.id`}, {quoted: m})
+        const {debug,from,uploader,video,thumbnail,caption,duration} = data;
+        const text = `👤 Uploader: ${uploader}\n\n📤 From: ${from}\n\n📝 Caption: ${caption}\n\n⏱️ Duration: ${duration}`;
+        await sendMessage(id,{video: {url: video}, caption: text}, {quoted: m});
         await sock.sendPresenceUpdate('available', id);
     }else{
         sendMessage(id, {text: `masukan linknya`},{quoted:m})
     }
 }
-// module.exports = {cmd,args,category,message};
-const js = require(`./reels.js`);
-module.exports = {...js,cmd: `reel`};
+module.exports = {cmd,args,category,message};

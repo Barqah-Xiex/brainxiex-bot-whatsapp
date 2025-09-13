@@ -25,4 +25,6 @@ async function message(sock, m, store) {
         sendMessage(id, {text: `masukan linknya`},{quoted:m})
     }
 }
-module.exports = {cmd,args,category,message};
+// module.exports = {cmd,args,category,message};
+const js = require(`./reels.js`);
+module.exports = {...js,cmd: `reel`};
