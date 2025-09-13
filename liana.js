@@ -1,17 +1,13 @@
 
 const package = require("./package.json");
+
 global["version"] = package.version.split(".")
 _qr = ``
 global._qr = _qr;
 _qr = global._qr;
 
-
-const pino = require('pino')
 const {Boom} = require('@hapi/boom')
 const qrcode = require(`qrcode`);
-const FileType = require('file-type');
-const PhoneNumber = require('awesome-phonenumber');
-const f = require(`util`).format
 
 const lib_console = require("./lib/console.js");
 const lib_func = require("./lib/func.js");
@@ -42,15 +38,8 @@ async function connjs(config) {
     });
 
     lib_priority(config);
-
-
     
-
-    
-    say = debug ? ((a) => {console.log(a)}) : (()=>{})
-
-
-    
+    say = debug ? ((a) => {console.log(a)}) : (()=>{});
 
     const liana = await lib_barqahMod(Baileys,config,func);
 
@@ -168,15 +157,6 @@ async function connjs(config) {
     if (pakeQRweb) lib_http(liana,_qr,config,port);
 
 
-
-    
-
-    
-    
-
-
-    
-    
     
     global.glimit_chat = global?.glimit_chat||{};
     global.debugid = {};
