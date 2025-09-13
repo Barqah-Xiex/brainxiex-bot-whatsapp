@@ -267,7 +267,8 @@ async function connjs(config) {
                 if(m.isBotBrainxiex) return;
 
                 // if(debug) console.log(m);
-                const {chat, sender, pushName, body, quoted, nomor } = m
+                const {chat, sender, pushName, body, quoted, nomor } = m;
+                if(!pushName.trim()) return 0;
                 if(chat.includes(`g`)){
                     store.rec.grup[chat] = true;
                 }else{

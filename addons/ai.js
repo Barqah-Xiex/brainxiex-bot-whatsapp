@@ -36,7 +36,7 @@ module.exports = function (Barqah){
                 ...config.AI_Payload_Default,
                 yourname: `${m.pushName||m.nomor}`,
                 messages,
-                model: config.AI_Payload_Default.model || model,
+                model: config?.AI_Payload_Default?.model || model,
                 legacy
             },{
                 headers: {
