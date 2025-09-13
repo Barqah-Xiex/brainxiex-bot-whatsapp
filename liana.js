@@ -230,9 +230,9 @@ async function connjs(config) {
     
     liana.ev.on(`creds.update`, async function() {
         liana.saveCreds(...arguments);
-        fs.save(`./database/contacs.json`,JSON.stringify(store.contacts))
-        fs.save(`./temp/msg.json`, JSON.stringify(store.msg))
-        fs.save(`./database/group.json`, JSON.stringify(store.group))
+        // fs.save(`./database/contacs.json`,JSON.stringify(store.contacts))
+        // fs.save(`./temp/msg.json`, JSON.stringify(store.msg))
+        // fs.save(`./database/group.json`, JSON.stringify(store.group))
     })
     
     
