@@ -1,6 +1,6 @@
 # Brainxiex Bot WhatsApp
 
-![Brainxiex Development Logo](https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp/raw/main/assets/logo.png)
+![Brainxiex Development Logo](assets/logo.png)
 
 Bot WhatsApp multifungsi berbasis Node.js, dikembangkan oleh Brainxiex Development. Mendukung berbagai fitur otomatisasi, game, AI, utilitas grup, dan personal assistant.
 
@@ -31,6 +31,7 @@ Bot WhatsApp multifungsi berbasis Node.js, dikembangkan oleh Brainxiex Developme
 
 3. **Konfigurasi**
    - Edit file `config.js` sesuai kebutuhan (API key, owner, dll).
+   - **Pembelian API key dapat dilakukan di** [https://xiex.my.id/api](https://xiex.my.id/api)
 
 4. **Jalankan Bot**
    ```
@@ -64,3 +65,4 @@ Hubungi: [WhatsApp](https://wa.me/628979059392)
 
 - Untuk pembelian VIP, ketik `owner` di bot dan chat owner.
 - Pembayaran: OVO, DANA, GOPAY, SHOPEEPAY, QRIS, dll.
+
