@@ -1,6 +1,6 @@
 # Brainxiex Bot WhatsApp
 
-![Brainxiex Development Logo](assets/banner.jpg)
+![Brainxiex Development Logo](asset/banner.jpg)
 
 Bot WhatsApp multifungsi berbasis Node.js, dikembangkan oleh Brainxiex Development. Mendukung berbagai fitur otomatisasi, game, AI, utilitas grup, dan personal assistant.
 
