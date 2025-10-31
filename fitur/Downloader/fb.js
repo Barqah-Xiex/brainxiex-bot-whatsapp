@@ -26,4 +26,4 @@ async function message(sock, m, store) {
 }
 // module.exports = {cmd,args,category,message};
 const js = require(`./reels.js`);
-module.exports = {...js,cmd: `reel`};
+module.exports = {...js,cmd: `fb`};
