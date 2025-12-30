@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+dirname=$(basename "$PWD")
+case "$1" in
+    install)
+        cd ..
+        git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git "$dirname"
+        cd "$dirname"
+        npm i
+        ;;
+    reinstall)
+        $0 unstall
+        $0 install
+        ;;
+    update)
+        if [[ "$2" == "hard" ]]; then
+            git pull
+            npm i
+        elif [[ "$2" == "soft" ]]; then
+            cp config.js /tmp/config_backup.js
+            git pull
+            cp /tmp/config_backup.js config.js
+            npm i
+        else
+            echo "Usage: $0 update {hard|soft}"
+        fi
+        ;;
+    uninstall)
+        cd ..
+        # Menghapus semua file kecuali direktori ./linux dan ./windows
+        find "./$dirname" -mindepth 1 -maxdepth 1 ! -name 'linux' ! -name 'windows' -exec rm -rfv {} +
+        echo "Uninstalled all files except ./linux and ./windows"
+        cd "$dirname"
+        ;;
+    *)
+        echo "Usage: $0 {install|reinstall|update {hard|soft}|uninstall}"
+        ;;
+esac

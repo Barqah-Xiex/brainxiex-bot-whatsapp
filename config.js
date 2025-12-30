@@ -18,7 +18,7 @@ Boolean: 1 (untuk nyala) dan 0 (untuk mati)
 
 
 // Endpoint server API
-const server = "xiex.my.id";
+const server = "brainxiex.com";
 
 const config = {
     // OWNER
@@ -36,7 +36,12 @@ const config = {
     mobile: false, // Mobile Mode (Default: false)
     session: `session`, // Nama Folder Penyimpanan Sesi
     custom_pairing: "", // Wajib String 8 HURUF ATAU ANGKA
-    browser: ["Windows", "Chrome", "Chrome 114.0.5735.198"], // Agent Browser Untuk Socket
+
+    // source: chrome://version/
+    // Chrome
+    // Google LLC
+    // Hak cipta 2025 Google LLC. Semua hak dilindungi undang-undang.
+    browser: ["brainxiex.com", "Chrome", "Chrome 143.0.7499.109"], // Agent Browser Untuk Socket
 
     // DATABASE
     /*
@@ -124,6 +129,8 @@ module.exports.multibot = [
     // Bot 1
     {
         ...config,
+        session: "bot1"
+
     }
 
 
@@ -138,6 +145,7 @@ module.exports.multibot = [
     //     Nomor_Bot: 6283871437856,
     //     Nama_Bot: `Brainxiex`,-
     //     usecode: false,
+    //     session: "bot2"
     // },
 
 
@@ -152,5 +160,6 @@ module.exports.multibot = [
     //     Nomor_Bot: 6283871437857,
     //     Nama_Bot: `Brainxiex`,-
     //     usecode: false,
+    //     session: "bot2"
     // },
 ];
