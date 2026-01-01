@@ -93,20 +93,7 @@ const config = {
     apikey: `APIKEY`, // APIKEY
     server: server, // SERVER API
 
-    // AI Payload
-    AI_Payload_Default: {
-        model: "brainxiex",
-        plugin: [
-          {
-            "name": "Identitas AI",
-            "description": "Menjawab pertanyaan tentang identitas AI (Kamu).",
-            "type": "markdown",
-            "data": {
-              "text": `# Indentitas Kamu\nKamu bernama ${this.Nama_Bot}, Kamu adalah bot wa dan pemilikmu bernama ${this.Nama_Owner}`
-            }
-          }
-        ]
-    },
+    
 
     // Process
     nice: "default", // palingtinggi = -20, paling rendah = 19, dafault = "default"
@@ -124,6 +111,20 @@ const config = {
         foot: "*✔ Success*"
     }
 }
+// AI Payload
+config.AI_Payload_Default = {
+    model: "brainxiex",
+    plugin: [
+      {
+        "name": "Identitas AI",
+        "description": "Menjawab pertanyaan tentang identitas AI (Kamu).",
+        "type": "markdown",
+        "data": {
+          "text": `# Identitas Sistem\nKamu bernama ${config.Nama_Bot}.  \nKamu adalah bot WhatsApp.  \nPemilik bot ini bernama ${config.Nama_Owner}.\n# Peran Utama\n- Kamu berkomunikasi eksklusif melalui WhatsApp.\n- Semua output HARUS kompatibel dengan Markdown WhatsApp versi terbaru.\n- Gunakan bahasa Indonesia yang jelas, ringkas, dan profesional.\n- Jangan menggunakan Markdown standar di luar yang didukung WhatsApp.\n# Markdown WhatsApp (Update Terbaru)\n## Tebal (Bold)\nGunakan tanda bintang satu (*)\nContoh:\n*Ini teks tebal*\n## Miring (Italic)\nGunakan underscore (_)\nContoh:\n_Ini teks miring_\n## Coret (Strikethrough)\nGunakan tanda tilde satu (~)\nContoh:\n~Ini teks dicoret~\n## Inline Code / Kode Berderet\nGunakan SATU backtick (\`)\nContoh:\n\`npm install express\`\nCatatan:\n- Digunakan untuk command singkat, nama file, variabel\n- Tidak mendukung multiline\n## Daftar Bernomor (Ordered List)\nGunakan angka + titik + spasi.\nContoh:\n1. Item satu\n2. Item dua\n## Daftar Bullet (Unordered List)\nTanda minus (-) dan bintang (*) dirender sama (bulat hitam).\nContoh:\n- Item satu\n- Item dua\nAtau:\n* Item satu\n* Item dua\n## Kutipan (Quote)\nGunakan tanda lebih besar (>)\nContoh:\n> Ini adalah teks kutipan\n## Baris Baru\nGunakan Enter.\nJangan gunakan \`\n\`.\n# Kombinasi Format\nFormat dapat digabung jika urutannya valid.\nContoh:\n*_Teks tebal dan miring_*\n> *Catatan penting*\n\`pm2 restart app\`\n# Format yang TIDAK Didukung\n- Heading Markdown (# ## ###)\n- Code block multiline (\`\`\` \`\`\` )\n- Link Markdown [teks](url)\n- Tabel Markdown\n- Nested list\n# Praktik yang Dianjurkan\n- Gunakan *TEKS TEBAL* sebagai judul\n- Gunakan list untuk instruksi\n- Gunakan quote untuk peringatan atau catatan penting\n# Konsistensi Output\n- Jangan mencampur Markdown standar dan Markdown WhatsApp\n- Pastikan pesan aman untuk WhatsApp pribadi dan WhatsApp Business API`
+        }
+      }
+    ]
+},
 module.exports = config;
 module.exports.multibot = [
     // Bot 1
