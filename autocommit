@@ -41,15 +41,15 @@ log $(pwd)
 log "Update Versi Project Dari: $(npm pkg get version)"
 if [ $# -eq 0 ]; then
   npm version patch;
-  argumen="Cuma Fix Beberapa Bug $(date +'%A %Y-%m-%d %H:%M:%S') v$(npm pkg get version | tr -d '"')"
+  argumen="Cuma Fix Beberapa Bug $(date +'%A %Y-%m-%d %H:%M:%S')"
 else
   npm version minor;
-  argumen="$* $(date +'%A %Y-%m-%d %H:%M:%S') v$(npm pkg get version | tr -d '"')"
+  argumen="$* $(date +'%A %Y-%m-%d %H:%M:%S')"
 fi
 log "Menjadi: $(npm pkg get version)"
 
 log "menambahkan ke changelog";
-masukanTextDiAtas "[$(npm pkg get version | tr -d '"')] - $argumen\n\n" changelog
+masukanTextDiAtas "[v$(npm pkg get version | tr -d '"')] - $argumen\n\n" changelog.txt
 
 log "git remote";
 git remote -v;
