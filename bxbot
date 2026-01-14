@@ -2,10 +2,10 @@
 dirname=$(basename "$PWD")
 case "$1" in
     install)
-        cd ..
-        rm -rfv "$dirname";
-        git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git "$dirname"
-        cd "$dirname"
+        tanggal=$(date +%d%m%Y)
+        git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git "$tanggal"
+        cd "$tanggal"
+        mv rsync -av $tanggal ..
         npm i
         ;;
     reinstall)
