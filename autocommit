@@ -15,6 +15,14 @@ log() {
   }
 }
 
+# ==========================
+# ==========================
+
+#       Coding Area
+
+# ==========================
+# ==========================
+
 # Mendapatkan direktori kerja saat ini
 log "Mendapatkan direktori kerja saat ini"
 REPO_DIR="$(pwd)";
