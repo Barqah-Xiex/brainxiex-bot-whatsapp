@@ -45,7 +45,7 @@ case "$1" in
         cd ..
         # Menghapus semua file kecuali direktori ./linux dan ./windows
         find "./$dirname" -mindepth 1 -maxdepth 1 ! -name 'linux' ! -name 'windows.bat' -exec rm -rfv {} +
-        echo "Uninstalled all files except ./linux and ./windows"
+        echo "Uninstalled all files except ./linux and ./windows.bat"
         cd "$dirname"
         ;;
     *)
