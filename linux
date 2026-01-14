@@ -3,6 +3,7 @@ dirname=$(basename "$PWD")
 case "$1" in
     install)
         cd ..
+        rm -rfv "$dirname";
         git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git "$dirname"
         cd "$dirname"
         npm i
