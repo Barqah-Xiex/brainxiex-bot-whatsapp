@@ -44,11 +44,18 @@ case "$1" in
     uninstall)
         cd ..
         # Menghapus semua file kecuali direktori ./linux dan ./windows
-        find "./$dirname" -mindepth 1 -maxdepth 1 ! -name 'linux' ! -name 'windows' -exec rm -rfv {} +
+        find "./$dirname" -mindepth 1 -maxdepth 1 ! -name 'linux' ! -name 'windows.bat' -exec rm -rfv {} +
         echo "Uninstalled all files except ./linux and ./windows"
         cd "$dirname"
         ;;
     *)
-        echo "Usage: $0 {run|bun-run (run with bun)|install|reinstall|update {hard|soft}|uninstall}"
+        echo Usage: %0 ^<command^>
+        echo.
+        echo   run                 jalankan dengan node
+        echo   bun-run             jalankan dengan bun
+        echo   install             clone dan install
+        echo   reinstall           uninstall + install
+        echo   update hard|soft    update repo
+        echo   uninstall           hapus file kecuali linux dan windows
         ;;
 esac
