@@ -1,11 +1,27 @@
 #!/usr/bin/env bash
 dirname=$(basename "$PWD")
 case "$1" in
+    run)
+        if [ ! -d "node_modules" ]; then
+            echo "Folder 'node_modules' tidak ditemukan. Menjalankan 'npm install'..."
+            npm install
+        fi
+        node .
+        ;;
+    bun-run)
+        if [ ! -d "node_modules" ]; then
+            echo "Folder 'node_modules' tidak ditemukan. Menjalankan 'npm install'..."
+            bun install
+        fi
+        bun .
+        ;;
     install)
         tanggal=$(date +%d%m%Y)
         git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git "$tanggal"
         cd "$tanggal"
         mv rsync -av $tanggal ..
+        cd ..
+        rm -rfv "$tanggal"
         npm i
         ;;
     reinstall)
@@ -33,6 +49,6 @@ case "$1" in
         cd "$dirname"
         ;;
     *)
-        echo "Usage: $0 {install|reinstall|update {hard|soft}|uninstall}"
+        echo "Usage: $0 {run|bun-run (run with bun)|install|reinstall|update {hard|soft}|uninstall}"
         ;;
 esac
