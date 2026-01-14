@@ -263,6 +263,8 @@ async function connjs(config) {
                 // if (!mek.key.fromMe && chatUpdate.type === 'notify') return
                 // console.log(liana.Command)
                 const m = smsg(liana, mek, store);
+
+                console.log(m)
                 
                 if(m.isBotBrainxiex) return;
 
