@@ -46,11 +46,11 @@ case "$1" in
 
     update)
         if [ "$2" = "hard" ]; then
-            sh $0 reinstall
+            git pull
             npm install
         elif [ "$2" = "soft" ]; then
             cp config.js /tmp/config_backup.js
-            sh $0 reinstall
+            git pull
             cp /tmp/config_backup.js config.js
             npm install
         else

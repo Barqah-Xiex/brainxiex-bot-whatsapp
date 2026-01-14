@@ -51,13 +51,13 @@ if "%1"=="reinstall" (
 :: ===== update =====
 if "%1"=="update" (
     if "%2"=="hard" (
-        call "%~f0" reinstall
+        git pull
         call npm install
         exit /b
     )
     if "%2"=="soft" (
         copy config.js %TEMP%\config_backup.js >nul
-        call "%~f0" reinstall
+        git pull
         copy %TEMP%\config_backup.js config.js >nul
         call npm install
         exit /b
