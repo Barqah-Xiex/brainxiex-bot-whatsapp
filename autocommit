@@ -41,7 +41,7 @@ fi
 log "Menjadi: $(npm pkg get version)"
 
 log "menambahkan ke changelog";
-masukanTextDiAtas "[$(npm pkg get version | tr -d '"')] - $argumen\n\n" changelog.js
+masukanTextDiAtas "[$(npm pkg get version | tr -d '"')] - $argumen\n\n" changelog
 
 log "git remote";
 git remote -v;
