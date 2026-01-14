@@ -55,6 +55,8 @@ case "$1" in
             npm install
         else
             echo "Usage: $0 update {hard|soft}"
+            echo "  hard                Hapus Config"
+            echo "  soft                Tidak Hapus Config"
         fi
         ;;
 
