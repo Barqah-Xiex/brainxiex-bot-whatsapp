@@ -4,6 +4,7 @@
 REPO_DIR="$(pwd)";
 
 # git remote add origin https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git;
+echo "\nSet URL Origin"
 git remote set-url origin https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git;
 
 # Masuk ke direktori repository
