@@ -17,33 +17,51 @@ async function run() {
             
         } catch (error) {
             console.error(error);
-            const { exec, spawn } = require('child_process');
-            if(error.code === 'MODULE_NOT_FOUND'){
-                const MODULE = `${error}`.split("\n")[0].replace("Error: Cannot find module '","").replace("\'","");
-                console.log("ERROR","Gak ada module",MODULE);
-                console.log("PROSES","Installing",MODULE);
-
-                await new Promise(r => {
-                    const installer = spawn("npm",['i',MODULE], {
-                        stdio: 'inherit',
-                        shell: true
-                    });
-
-                    installer.on('close', r);
-                    installer.on('exit', r);
-                    installer.on('error', e => console.error(`INSTALL ERRROR:`,e))
-                    installer.stdout.on('data', (data) => {
-                        process.stdout.write(data);
-                    });
+            const { spawn } = require('child_process');
+                
+            // Detect bun / node
+            const IS_BUN = Boolean(process.versions.bun);
+            const IS_NODE = Boolean(process.versions.node);
+                
+            if (error.code === 'MODULE_NOT_FOUND') {
+            let msg = String(error);
                     
-                    installer.stderr.on('data', (data) => {
-                        process.stderr.write(data);
-                    });
+            // Ambil modul dengan regex multi opsi
+            let MODULE =
+                msg.match(/Cannot find module ['"]([^'"]+)['"]/)?.[1] ||   // Node.js
+                msg.match(/Cannot find package ['"]([^'"]+)['"]/)?.[1] ||  // Bun
+                null;
                     
-                });
-            }else{
-                console.error(error);
+            if (!MODULE) {
+                console.error("Tidak dapat mengidentifikasi nama modul dari error:");
+                console.error(msg);
+                return;
             }
+        
+            console.log("ERROR","Gak ada module",MODULE);
+            console.log("PROSES","Installing",MODULE);
+        
+            const IS_BUN = Boolean(process.versions.bun);
+            const CMD  = IS_BUN ? "bun" : "npm";
+            const ARGS = IS_BUN ? ["add", MODULE] : ["i", MODULE];
+        
+            await new Promise(r => {
+                const installer = require('child_process').spawn(CMD, ARGS, {
+                    stdio: 'inherit',
+                    shell: true
+                });
+            
+                installer.on('close', r);
+                installer.on('exit', r);
+                installer.on('error', e => console.error(`INSTALL ERROR:`, e));
+            });
+        
+            return;
+        }
+
+        
+            console.error(error);
+
         }
     }else{
         // ini agar idup terus
