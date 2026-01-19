@@ -18,6 +18,11 @@ if "%1"=="run" (
 
 :: ===== bun-run =====
 if "%1"=="bun-run" (
+    where bun >nul 2>nul
+    if errorlevel 1 (
+        echo "Bun tidak ditemukan. Menginstal Bun..."
+        powershell -c "irm bun.sh/install.ps1 | iex"
+    )
     if not exist node_modules (
         echo Folder 'node_modules' tidak ditemukan. Menjalankan 'bun install'...
         call bun install

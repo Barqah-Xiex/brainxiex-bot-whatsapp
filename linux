@@ -12,6 +12,10 @@ case "$1" in
         ;;
 
     bun-run)
+        if ! command -v bun >/dev/null 2>&1; then
+            echo "Bun tidak ditemukan. Menginstal Bun..."
+            curl -fsSL https://bun.sh/install | bash
+        fi
         if [ ! -d "node_modules" ]; then
             echo "Folder 'node_modules' tidak ditemukan. Menjalankan 'bun install'..."
             bun install
