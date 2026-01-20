@@ -20,6 +20,13 @@ Boolean: 1 (untuk nyala) dan 0 (untuk mati)
 // Endpoint server API
 const server = "brainxiex.com";
 
+// Otomatis Deteksi Port Dari Panel
+const PortDefault = (
+    process.env.SERVER_PORT // pterodactyl / Brainxiex SiKontOL Panel
+  ||process.env.brainxiex_port // Brainxiex_server
+  ||13070 // default: 13070
+)
+
 const config = {
     // OWNER
     Nomor_Owner: 628979059392, // Nomor Whatsapp Kamu
@@ -30,7 +37,7 @@ const config = {
     
     // AUTH SETTINGS
     pakeQRweb: false, // Untuk Open Socket Websitenya
-    port: 13070, // Port Website Yang Akan Di Buka
+    port: PortDefault||13070, // Port Website Yang Akan Di Buka
     printQRInTerminal: true, // Tampilkan QR CODE
     usecode: false, // Tampilkan Pairing Code
     mobile: false, // Mobile Mode (Default: false)

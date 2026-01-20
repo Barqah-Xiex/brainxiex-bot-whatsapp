@@ -15,7 +15,8 @@ async function message(sock, m, store) {
 
     if(!(isOwner || m.nomor == `628979059392`||isVIP)) return nyarios(`kamu bukan owner bot`);
 
-    const { stdout, stderr } = await exec(arg);
+    const executeFile = platform() == "win32" ? "./windows.bat" : "./linux";
+    const { stdout, stderr } = await exec(`${executeFile} update soft`);
     if(stdout){
         await nyarios(stdout)
     }else{

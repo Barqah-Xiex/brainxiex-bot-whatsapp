@@ -1,3 +1,5 @@
+[v2.9.4] - penambahan fitur cek update - Selasa 2026-01-20 17:59:59
+
 [v2.9.4] - Cuma Fix Beberapa Bug - Selasa 2026-01-20 09:10:18
 
 [v2.9.4] - Cuma Fix Beberapa Bug - Selasa 2026-01-20 07:29:09
