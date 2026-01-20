@@ -32,9 +32,9 @@ async function message(sock, m, store) {
         try {
             const { stdout, stderr } = await exec(arg);
             if(stdout){
-                nyarios(stdout)
+                nyarios(`${stdout}`)
             }else{
-                nyarios(stderr)
+                nyarios(`${stderr}`)
             }
         } catch (error) {
             nyarios(error)
