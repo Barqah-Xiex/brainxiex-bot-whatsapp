@@ -21,7 +21,7 @@ async function message(sock, m, store) {
     const mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])];
     const mentioned = [].concat(parseMention(body), (m.mentionedJid || []), (m.quoted ? [m.quoted.sender] : []));
     
-    if(!isset(mentioned[0]) || (mentioned == m.sender)) return nyarios(`target tidak di temukan`);
+    if(!isset(mentioned[0]) || (mentioned == m.saha)) return nyarios(`target tidak di temukan`);
     
     const orangnya = mentioned[0];
     const Orang = await player(orangnya);
