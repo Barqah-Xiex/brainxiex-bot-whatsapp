@@ -89,7 +89,7 @@ case "$1" in
         echo "  bun-run             jalankan dengan bun"
         echo "  install             clone dan install"
         echo "  reinstall           uninstall + install"
-        echo "  update hard|soft    update repo"
+        echo "  update hard|soft|force    update repo"
         echo "  uninstall           hapus file kecuali linux dan windows.bat"
         ;;
 esac

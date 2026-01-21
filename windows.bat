@@ -21,7 +21,7 @@ if "%1"=="bun-run" (
     where bun >nul 2>nul
     if errorlevel 1 (
         echo "Bun tidak ditemukan. Menginstal Bun..."
-        powershell -c "irm bun.sh/install.ps1 | iex"
+        curl -fsSL https://bun.sh/install | bash
     )
     if not exist node_modules (
         echo Folder 'node_modules' tidak ditemukan. Menjalankan 'bun install'...
@@ -39,7 +39,11 @@ if "%1"=="install" (
     echo Cloning...
     git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git %tanggal%
     cd %tanggal%
-    robocopy . .. /E
+    if exist rsync (
+        robocopy . .. /E
+    ) else (
+        xcopy . .. /E /I
+    )
     cd ..
     rmdir /S /Q %tanggal%
     call npm install
@@ -67,7 +71,14 @@ if "%1"=="update" (
         call npm install
         exit /b
     )
-    echo Usage: %0 update {hard^|soft}
+    if "%2"=="force" (
+        copy config.js %TEMP%\config_backup.js >nul
+        call "%~f0" reinstall
+        copy %TEMP%\config_backup.js config.js >nul
+        call npm install
+        exit /b
+    )
+    echo Usage: %0 update {hard^|soft^|force}
     exit /b
 )
 
@@ -97,6 +108,6 @@ echo   run                 jalankan dengan node
 echo   bun-run             jalankan dengan bun
 echo   install             clone dan install
 echo   reinstall           uninstall + install
-echo   update hard|soft    update repo
+echo   update hard|soft|force    update repo
 echo   uninstall           hapus file kecuali linux dan windows
 exit /b

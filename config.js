@@ -48,7 +48,7 @@ const config = {
     // Chrome
     // Google LLC
     // Hak cipta 2025 Google LLC. Semua hak dilindungi undang-undang.
-    browser: ["brainxiex.com", "Chrome", "Chrome 143.0.7499.109"], // Agent Browser Untuk Socket
+    browser: ["brainxiex.com", "Chrome", "Chrome 143.0.7499.169"], // Agent Browser Untuk Socket
 
     // DATABASE
     /*
