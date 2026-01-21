@@ -24,7 +24,7 @@ const server = "brainxiex.com";
 const PortDefault = (
     process.env.SERVER_PORT // pterodactyl / Brainxiex SiKontOL Panel
   ||process.env.brainxiex_port // Brainxiex_server
-  ||13070 // default: 13070
+  ||13070 // (SET DISINI !) default: 13070
 )
 
 const config = {

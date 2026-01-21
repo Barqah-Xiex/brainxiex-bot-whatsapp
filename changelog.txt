@@ -1,3 +1,5 @@
+[v2.10.4] - Cuma Fix Beberapa Bug - Rabu 2026-01-21 11:13:18
+
 [v2.10.4] - tambahin update force - Rabu 2026-01-21 11:00:45
 
 [v2.10.4] - lupa masukin versi awkoakowk - Selasa 2026-01-20 18:21:46
