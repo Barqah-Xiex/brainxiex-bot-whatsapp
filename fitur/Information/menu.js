@@ -77,9 +77,9 @@ pLevel: *${p.pLevel}*
 VIP Type: *${p.pVip}*
 `
     const bonekamenu = `
- /)  /) ~  ┏━━━━━━━━━━━┓
+ /)  /) 
 ( •-• )  ~       [ ♡ Menu ♡ ]
-/づづ ~ ┗━━━━━━━━━━━┛ `
+/づづ ~ `
 
     const text = `${statistik}
 Ingin menjadi VIP ? ketik *${Prefix}vip*
