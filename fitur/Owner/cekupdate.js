@@ -30,9 +30,9 @@ async function message(sock, m, store) {
         (versiBaruObj[0] == versiSekarangObj[0] && versiBaruObj[1] > versiSekarangObj[1]) || 
         (versiBaruObj[0] == versiSekarangObj[0] && versiBaruObj[1] == versiSekarangObj[1] && versiBaruObj[2] > versiSekarang.split(".")[2])) {
         
-        nyarios(`Versi baru tersedia!\n${versiSekarang} -> ${versiBaru}\nSilakan lakukan update!\nGunakan: ${Prefix}updatebot`);
+        nyarios(`Versi baru tersedia!\n${versiSekarang} -> ${versiBaru}\n\nSilakan lakukan update!\nGunakan: ${Prefix}updatebot`);
     } else {
-        nyarios(`Versi Terlihat Aneh!\nUpdate Aja !!!\nGunakan: ${Prefix}updatebot`);
+        nyarios(`Versi Terlihat Aneh!\nUpdate Aja !!!\n\nGunakan: ${Prefix}updatebot`);
     }
 }
 module.exports = {cmd,args,category,message};
