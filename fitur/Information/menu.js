@@ -23,7 +23,12 @@ async function message(sock, m, store) {
         
         const categori = v.toLocaleLowerCase();
         const search = arg.toLocaleLowerCase();
-        return categori.includes(search)
+        if(categori.includes(search)) return true;
+
+        const fitur = sock.category[v];
+        for (const f of fitur) {
+            if(f.toLocaleLowerCase().includes(search)) return true;
+        }
     })
 
     const categori = bySearch.length > 0 ? bySearch : Object.keys(sock.category);
