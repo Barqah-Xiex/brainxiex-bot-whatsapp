@@ -64,7 +64,7 @@ case "$1" in
             sh "$0" install;
             cp /tmp/config_backup.js config.js;
         else
-            echo "Usage: $0 update {hard|soft}"
+            echo "Usage: $0 update {hard|soft|force}"
             echo "  hard                Hapus Config"
             echo "  soft                Tidak Hapus Config"
             echo "  force               Tidak Hapus Config"
