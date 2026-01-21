@@ -29,6 +29,7 @@ REPO_DIR="$(pwd)";
 log "$REPO_DIR"
 
 log "Update Versi Project Dari: $(npm pkg get version)"
+sleep 1;
 if [ $# -eq 0 ]; then
   npm version patch;
   argumen="Cuma Fix Beberapa Bug - $(date +'%A %Y-%m-%d %H:%M:%S')"
