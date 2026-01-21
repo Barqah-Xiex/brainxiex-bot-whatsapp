@@ -16,7 +16,7 @@ async function message(sock, m, store) {
     const {data} = await func.axios.get("https://raw.githubusercontent.com/Barqah-Xiex/brainxiex-bot-whatsapp/refs/heads/main/package.json").catch(e => ({data: e?.response?.data||"No Data", status: e?.status}));
 
     const versiBaru = data.version;
-    const versiSekarang = process?.env?.npm_package_version;
+    const versiSekarang = JSON.parse(fs.load("package.json")).version;
 
     if(!versiBaru) return nyarios(`Versi Baru Tidak Di Temukan !\n${data}`);
     if(!versiSekarang) return nyarios(`Mending Langsung Update Aja Kata Gw Mah !\nGunakan: ${Prefix}updatebot`);
