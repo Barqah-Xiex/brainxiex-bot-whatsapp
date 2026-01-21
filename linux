@@ -31,7 +31,7 @@ case "$1" in
         if command -v rsync >/dev/null 2>&1; then
             rsync -av . ..
         else
-            cp -r . ..
+            cp -rfv . ..
         fi
 
         cd ..
@@ -59,7 +59,7 @@ case "$1" in
             npm install;
         elif [ "$2" = "force" ]; then
             cp config.js /tmp/config_backup.js;
-            sh "$0" reinstall;
+            sh "$0" install;
             cp /tmp/config_backup.js config.js;
             npm install;
         else
