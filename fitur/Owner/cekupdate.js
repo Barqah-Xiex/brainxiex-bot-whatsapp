@@ -26,13 +26,15 @@ async function message(sock, m, store) {
     const versiBaruObj = versiBaru.split(".");
     const versiSekarangObj = versiSekarang.split(".");
 
+    if(versiBaru == versiSekarang) return nyarios(`Anda menggunakan versi terbaru: ${versiSekarang}.`);
+
     if (versiBaruObj[0] > versiSekarangObj[0] || 
         (versiBaruObj[0] == versiSekarangObj[0] && versiBaruObj[1] > versiSekarangObj[1]) || 
         (versiBaruObj[0] == versiSekarangObj[0] && versiBaruObj[1] == versiSekarangObj[1] && versiBaruObj[2] > versiSekarang.split(".")[2])) {
         
-        nyarios(`Versi baru tersedia: ${versiBaru}. Silakan lakukan update!\nGunakan: ${Prefix}updatebot`);
+        nyarios(`Versi baru tersedia!\n${versiSekarang} -> ${versiBaru}\nSilakan lakukan update!\nGunakan: ${Prefix}updatebot`);
     } else {
-        nyarios(`Anda menggunakan versi terbaru: ${versiSekarang}.`);
+        nyarios(`Versi Terlihat Aneh!\nUpdate Aja !!!\nGunakan: ${Prefix}updatebot`);
     }
 
 
