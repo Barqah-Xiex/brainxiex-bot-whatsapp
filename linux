@@ -55,7 +55,6 @@ case "$1" in
         elif [ "$2" = "soft" ]; then
             cp config.js /tmp/config_backup.js;
             git pull;
-            rm -rfv package*.json bun.lock;
             cp /tmp/config_backup.js config.js;
             npm install;
         elif [ "$2" = "force" ]; then
