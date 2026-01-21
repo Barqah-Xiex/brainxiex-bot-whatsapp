@@ -24,7 +24,7 @@ async function message(sock, m, store) {
     const versiBaruObj = versiBaru.split(".");
     const versiSekarangObj = versiSekarang.split(".");
 
-    if(versiBaru == versiSekarang) return nyarios(`Anda menggunakan versi terbaru: ${versiSekarang}.`);
+    if(versiBaru == versiSekarang) return nyarios(`Anda menggunakan versi terbaru: ${versiSekarang}`);
 
     if (versiBaruObj[0] > versiSekarangObj[0] || 
         (versiBaruObj[0] == versiSekarangObj[0] && versiBaruObj[1] > versiSekarangObj[1]) || 
