@@ -32,7 +32,7 @@ async function message(sock, m, store) {
         
         nyarios(`Versi baru tersedia!\n${versiSekarang} -> ${versiBaru}\n\nSilakan lakukan update!\nGunakan: ${Prefix}updatebot`);
     } else {
-        nyarios(`Versi Terlihat Aneh!\nUpdate Aja !!!\n\nGunakan: ${Prefix}updatebot`);
+        nyarios(`Versi Terlihat Aneh!\n\nVersi Sekarang: ${versiSekarang}\nVersi Baru: ${versiBaru}\n\nUpdate Aja !!!\n\nGunakan: ${Prefix}updatebot`);
     }
 }
 module.exports = {cmd,args,category,message};
