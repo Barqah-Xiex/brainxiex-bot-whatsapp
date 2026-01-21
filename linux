@@ -8,17 +8,17 @@ case "$1" in
             echo "Folder 'node_modules' tidak ditemukan. Menjalankan 'npm install'..."
             npm install
         fi
-        node .
+        node .;
         ;;
 
     bun-run)
         if ! command -v bun >/dev/null 2>&1; then
             echo "Bun tidak ditemukan. Menginstal Bun..."
-            curl -fsSL https://bun.sh/install | bash
+            curl -fsSL https://bun.sh/install | bash;
         fi
         if [ ! -d "node_modules" ]; then
             echo "Folder 'node_modules' tidak ditemukan. Menjalankan 'bun install'..."
-            bun install
+            bun install;
         fi
         bun .
         ;;
@@ -35,28 +35,33 @@ case "$1" in
         fi
 
         cd ..
-        rm -rf "$tanggal"
+        rm -rf "$tanggal";
 
-        npm install
+        npm install;
 
         # opsional auto make executable
         chmod +x linux 2>/dev/null
         ;;
         
     reinstall)
-        sh "$0" uninstall
-        sh "$0" install
+        sh "$0" uninstall;
+        sh "$0" install;
         ;;
 
     update)
         if [ "$2" = "hard" ]; then
-            git pull
-            npm install
+            git pull;
+            npm install; 
         elif [ "$2" = "soft" ]; then
-            cp config.js /tmp/config_backup.js
-            git pull
-            cp /tmp/config_backup.js config.js
-            npm install
+            cp config.js /tmp/config_backup.js;
+            git pull;
+            cp /tmp/config_backup.js config.js;
+            npm install;
+        elif [ "$2" = "force" ]; then
+            cp config.js /tmp/config_backup.js;
+            sh "$0" reinstall;
+            cp /tmp/config_backup.js config.js;
+            npm install;
         else
             echo "Usage: $0 update {hard|soft}"
             echo "  hard                Hapus Config"
@@ -69,8 +74,8 @@ case "$1" in
         for item in "$dirname"/*; do
             name=$(basename "$item")
             if [ "$name" != "linux" ] && [ "$name" != "windows.bat" ]; then
-                rm -rf "$item"
-                echo "Menghapus $item"
+                rm -rf "$item";
+                echo "Menghapus $item";
             fi
         done
         echo "Uninstalled kecuali ./linux dan ./windows.bat"
