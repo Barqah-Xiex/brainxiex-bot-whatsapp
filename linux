@@ -81,7 +81,6 @@ case "$1" in
         git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git "$DATE" || exit 1
         cd "$DATE" || exit 1
         if has_cmd rsync; then
-          # copy SEMUA kecuali folder 'fitur' dan 'cmd'
           rsync -a --exclude='fitur' --exclude='cmd' . ..
         else
           find . -mindepth 1 -maxdepth 1 ! -name 'fitur' ! -name 'cmd' -exec cp -rf {} .. \;
