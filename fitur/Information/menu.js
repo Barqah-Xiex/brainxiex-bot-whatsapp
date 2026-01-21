@@ -17,6 +17,17 @@ async function message(sock, m, store) {
     const jam = date.getHours() < 10 ? "0"+date.getHours() : date.getHours();
     const menit = date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes();
 
+    const bySearch = Object.keys(sock.category)
+    .filter(v => {
+        if(!isset(arg)) return true;
+        
+        const categori = v.toLocaleLowerCase();
+        const search = arg.toLocaleLowerCase();
+        return categori.includes(search)
+    })
+
+    const categori = bySearch.length > 0 ? bySearch : Object.keys(sock.category);
+
 
     const templateButtons = [
         {index: 1, urlButton: {displayText: 'Bot Script', url: 'http://xiex.my.id/bikinbot'}},
@@ -65,7 +76,14 @@ VIP Type: *${p.pVip}*
 ( •-• )  ~       [ ♡ Menu ♡ ]
 /づづ ~ ┗━━━━━━━━━━━┛ `
 
-    const text = `${statistik}\nIngin menjadi VIP ? ketik *${Prefix}vip*\n${bonekamenu}\n${''}\n${Object.keys(sock.category).filter(v => v != '_').map(v => `*₊⁺${v}⁺₊*\n${sock.category[v].map(v => `✧${Prefix}${v}`).join(`\n`)}`).join(`\n\n`)}`;
+    const text = `${statistik}
+Ingin menjadi VIP ? ketik *${Prefix}vip*
+${bonekamenu}
+
+${categori
+    .filter(v => v != '_')
+    .map(v => `*₊⁺${v}⁺₊*\n${sock.category[v].map(v => `✧${Prefix}${v}`).join(`\n`)}`)
+    .join(`\n\n`)}`;
  
     // const jpegThumbnail = (await sock.func.fs.cek(`./asset/banner-resize.jpeg`)) ? sock.func.fs.load(`./asset/banner-resize.jpeg`) : await resize((await media2buffer(banner)).toString(`base64`),300,300);
 
