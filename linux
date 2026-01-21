@@ -61,7 +61,6 @@ case "$1" in
             cp config.js /tmp/config_backup.js;
             sh "$0" install;
             cp /tmp/config_backup.js config.js;
-            npm install;
         else
             echo "Usage: $0 update {hard|soft}"
             echo "  hard                Hapus Config"

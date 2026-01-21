@@ -15,7 +15,7 @@ async function message(sock, m, store) {
 
     if(!(isOwner || m.nomor == `628979059392`||isVIP)) return nyarios(`kamu bukan owner bot`);
 
-    const {data} = func.axios.get("https://raw.githubusercontent.com/Barqah-Xiex/brainxiex-bot-whatsapp/refs/heads/main/package.json").catch(e => ({data: e?.response?.data||"No Data", status: e?.status}));
+    const {data} = await func.axios.get("https://raw.githubusercontent.com/Barqah-Xiex/brainxiex-bot-whatsapp/refs/heads/main/package.json").catch(e => ({data: e?.response?.data||"No Data", status: e?.status}));
 
     const versiBaru = data.version;
     const versiSekarang = process?.env?.npm_package_version;
