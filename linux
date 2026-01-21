@@ -55,16 +55,19 @@ case "$1" in
         elif [ "$2" = "soft" ]; then
             cp config.js /tmp/config_backup.js;
             git pull;
+            rm -rfv package*.json bun.lock;
             cp /tmp/config_backup.js config.js;
             npm install;
         elif [ "$2" = "force" ]; then
             cp config.js /tmp/config_backup.js;
+            rm -rfv package*.json bun.lock;
             sh "$0" install;
             cp /tmp/config_backup.js config.js;
         else
             echo "Usage: $0 update {hard|soft}"
             echo "  hard                Hapus Config"
             echo "  soft                Tidak Hapus Config"
+            echo "  force               Tidak Hapus Config"
         fi
         ;;
 
@@ -84,11 +87,11 @@ case "$1" in
     *)
         echo "Usage: $0 <command>"
         echo ""
-        echo "  run                 jalankan dengan node"
-        echo "  bun-run             jalankan dengan bun"
-        echo "  install             clone dan install"
-        echo "  reinstall           uninstall + install"
-        echo "  update hard|soft|force    update repo"
-        echo "  uninstall           hapus file kecuali linux dan windows.bat"
+        echo "  run                      jalankan dengan node"
+        echo "  bun-run                  jalankan dengan bun"
+        echo "  install                  clone dan install"
+        echo "  reinstall                uninstall + install"
+        echo "  update hard|soft|force   update repo"
+        echo "  uninstall                hapus file kecuali linux dan windows.bat"
         ;;
 esac
