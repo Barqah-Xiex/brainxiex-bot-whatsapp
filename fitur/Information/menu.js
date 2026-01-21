@@ -1,5 +1,5 @@
 const cmd = `menu`;
-const args = ``;
+const args = `(search by categori or command)`;
 const category = `Information`;
 async function message(sock, m, store) {
     const {sendMessage, config,resize,media2buffer, MyIP, func, player} = sock;
