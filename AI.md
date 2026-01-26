@@ -76,13 +76,13 @@ Helper tersedia:
 
 Contoh:
 
-````js
-const buffer = sock.func.db.read("/download/ikan.mp4")
-sock.func.db.save("/download/ikan_copy.mp4", buffer)
 ```js
 const buffer = sock.func.db.read("/download/ikan.mp4")
 sock.func.db.save("/download/ikan_copy.mp4", buffer)
-``` Wajib
+
+const buffer = sock.func.db.read("/download/ikan.mp4")
+sock.func.db.save("/download/ikan_copy.mp4", buffer)
+```
 
 Sistem memiliki **3 jenis modul**:
 1. Command (fitur biasa)
@@ -93,13 +93,9 @@ Setiap jenis modul memiliki aturan berbeda dan **tidak boleh tertukar fungsinya*
 
 Semua fitur **HARUS** mengikuti struktur berikut:
 
-````
-
 fitur/
 └─ <Category>/
 └─ <command>.js
-
-```
 
 Contoh:
 ```
@@ -572,14 +568,11 @@ AI hanya menjelaskan isi file, **tidak mengubah apa pun**.
 
 Saat AI membuat atau mengedit file, output **HARUS** dalam format:
 
-````
 PATH: fitur/Example/contoh.js
 ACTION: CREATE | EDIT
 CODE:
 ```js
 // full code
-````
-
 ```
 
 Tanpa teks tambahan di luar format tersebut.

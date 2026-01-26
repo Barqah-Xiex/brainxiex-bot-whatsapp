@@ -1,3 +1,5 @@
+[v2.13.2] - Cuma Fix Beberapa Bug - Senin 2026-01-26 10:57:03
+
 [v2.13.1] - Cuma Fix Beberapa Bug - Jumat 2026-01-23 13:16:20
 
 [v2.13.0] - penambahan AI.md kasih file itu ke AI sebelum Vibe Coding - Kamis 2026-01-22 19:44:20
