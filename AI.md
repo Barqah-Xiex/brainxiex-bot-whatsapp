@@ -138,7 +138,7 @@ async function message(sock, m, store) {
 }
 
 module.exports = { cmd, args, category, message };
-````
+```
 
 Jika AI membuat file command baru, **template ini wajib digunakan tanpa modifikasi struktur**.
 
