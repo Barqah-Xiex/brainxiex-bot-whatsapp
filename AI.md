@@ -92,11 +92,11 @@ Sistem memiliki **3 jenis modul**:
 Setiap jenis modul memiliki aturan berbeda dan **tidak boleh tertukar fungsinya**.
 
 Semua fitur **HARUS** mengikuti struktur berikut:
-
+```
 fitur/
 └─ <Category>/
 └─ <command>.js
-
+```
 Contoh:
 ```
 
