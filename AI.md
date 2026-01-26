@@ -328,5 +328,3 @@ AI **DILARANG**:
 Dokumen ini adalah **KONTRAK KERAS**.
 
 Jika satu aturan saja dilanggar, output AI **TIDAK VALID** dan **TIDAK BOLEH DIGUNAKAN**.
-
-```
