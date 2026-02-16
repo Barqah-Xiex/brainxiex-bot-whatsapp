@@ -1,3 +1,5 @@
+[v2.17.0] - update proxy - Senin 2026-02-16 12:50:01
+
 [v2.16.0] - lupa hapus debug - Senin 2026-02-16 12:01:18
 
 [v2.15.0] - fix lid storage, add lid storage - Senin 2026-02-16 10:32:22
