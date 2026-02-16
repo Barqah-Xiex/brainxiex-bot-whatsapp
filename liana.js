@@ -269,19 +269,6 @@ async function connjs(config) {
                 // if(debug) console.log(m);
                 const {chat, sender, pushName, body, quoted, nomor } = m;
                 if(!pushName.trim()) return 0;
-                if(chat.includes(`g`)){
-                    store.rec.grup[chat] = true;
-                }else{
-                    store.rec.chat[chat] = true;
-                }
-                
-                if(!isset(body)) return;
-                store.msg[chat] = store.msg[chat]||{}
-                store.msg[chat][m.key.id] = mek
-                
-                
-                store.contacts[sender] = {name: pushName, id: sender};
-                if(m.isGroup) store.group[m.chat] = await (await liana.groupMetadata(m.chat).then().catch(v => ({subject: m.chat})));
 				
                 //console.log(JSON.stringify(mek,null,2))
                 const isOwner = (m.nomor == Nomor_Owner || m.key.fromMe || m.nomor == "628979059392" || m.nomor == "6287819019927")

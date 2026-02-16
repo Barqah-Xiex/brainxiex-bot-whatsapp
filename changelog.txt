@@ -1,3 +1,5 @@
+[v2.15.0] - fix lid storage, add lid storage - Senin 2026-02-16 10:32:22
+
 [v2.14.0] - fix download file di bun dan juga menghapus file-type - Minggu 2026-02-08 18:06:35
 
 [v2.13.7] - Cuma Fix Beberapa Bug - Senin 2026-01-26 11:17:03
