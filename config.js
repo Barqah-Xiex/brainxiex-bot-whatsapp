@@ -100,7 +100,8 @@ const config = {
     apikey: `APIKEY`, // APIKEY
     server: server, // SERVER API
 
-    
+    // PROXY
+    proxy: false, // false = off, "proxy url" = on
 
     // Process
     nice: "default", // palingtinggi = -20, paling rendah = 19, dafault = "default"
