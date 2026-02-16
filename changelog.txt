@@ -1,3 +1,5 @@
+[v2.16.0] - lupa hapus debug - Senin 2026-02-16 12:01:18
+
 [v2.15.0] - fix lid storage, add lid storage - Senin 2026-02-16 10:32:22
 
 [v2.14.0] - fix download file di bun dan juga menghapus file-type - Minggu 2026-02-08 18:06:35
