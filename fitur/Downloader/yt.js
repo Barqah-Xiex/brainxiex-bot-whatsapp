@@ -12,7 +12,7 @@ async function message(sock, m, store) {
     if(isset(arg)){
         await sock.sendPresenceUpdate('recording', id);
         const url = `${arg}`;
-        const {data: {Barqah:{url:link,link:yt,audio,title,thumb,error}}} = await sock.sendRequest(m).post(`${baseURL}/api/downloader/youtube`,{apikey,url}).catch(v => ({data: {v,Barqah:{error:true}},}));
+        const {data: {Barqah:{url:link,link:yt,audio,title,thumb,error}}} = await sock.sendRequest(m).post(`${baseURL}/api/downloader/youtube`,{apikey,url,type:"video"}).catch(v => ({data: {v,Barqah:{error:true}},}));
         if(error){
             nyarios(`Error.\n\n${data.message}`);
             await sock.sendPresenceUpdate('available', id);

@@ -12,13 +12,13 @@ async function message(sock, m, store) {
     if(isset(arg)){
         await sock.sendPresenceUpdate('recording', id);
         const url = `${arg}`;
-        const {data: {Barqah:{url:link,link:yt,audio,title,thumb,error}}} = await sock.sendRequest(m).post(`${baseURL}/api/downloader/youtube`,{apikey,url}).catch(v => ({data: {v,Barqah:{error:true}}}));
+        const {data: {Barqah:{url:link,link:yt,audio,title,thumb,error}}} = await sock.sendRequest(m).post(`${baseURL}/api/downloader/youtube`,{apikey,url,type:"audio"}).catch(v => ({data: {v,Barqah:{error:true}}}));
     if (error||false) {
         nyarios(`Error.\n\n${data.v.message}`);
         await sock.sendPresenceUpdate('available', id);
         return;
     }
-        sock.banner(id, {image:{url:thumb}, caption: `*Sedang mengirim...*\nTitle: ${title.replace("API xiex.my.id\n",'')}\nLink: ${yt}\n\nDowwnload Manual:\n*[Video]* ${link}\n*[Audio]* ${audio}`})
+        sock.banner(id, {image:{url:thumb}, caption: `*Sedang mengirim...*\nTitle: ${title.replace("API xiex.my.id\n",'')}\nLink: ${yt}\n\nDowwnload Manual:\n*[Audio]* ${audio}`})
         const Message = {
             audio: { url: audio },
             ptt: true,
