@@ -12,6 +12,7 @@ async function run() {
             if(config.multibot && config.multibot[0]){
                 config.multibot.forEach((v,i) => {
                     console.log("LOADED",v.Nama_Bot,v.Nomor_Bot)
+
                     if(typeof v.autoRestart == "undefined") v.autoRestart = 24*60*60*1000;
                     if(v.autoRestart){
                       console.log("[Config]","autoRestart dalam", v.autoRestart/(60*1000),"menit")
@@ -20,6 +21,7 @@ async function run() {
                         process.exit(1);
                       }, v.autoRestart);
                     }
+                    
                     require("./liana")(v);
                 })
             }else{
