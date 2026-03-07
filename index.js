@@ -1,7 +1,6 @@
 const { spawn } = require('child_process');
 const { platform } = require("os");
 
-if(typeof process.env.pm_id !== "undefined") console.log("[PM2]","pm2 terdeteksi di ID",process.env.pm_id)
 
 async function run() {
     if(process.argv[2] == `y`){
@@ -21,9 +20,11 @@ async function run() {
                         process.exit(1);
                       }, v.autoRestart);
                     }
-                    
+
                     require("./liana")(v);
                 })
+                
+                if(typeof process.env.pm_id !== "undefined") console.log("[PM2]","pm2 terdeteksi di ID",process.env.pm_id)
             }else{
                 require("./liana")(config);
             }
