@@ -2,119 +2,141 @@
 
 ## Tujuan Dokumen
 
-Dokumen ini mendefinisikan **aturan, format, dan kontrak kerja AI** agar AI dapat:
+Dokumen ini adalah kontrak kerja AI untuk project Brainxiex Bot WhatsApp.
 
-1. Membuat file fitur baru secara otomatis.
-2. Mengedit file fitur yang sudah ada.
-3. Memastikan semua kode yang dihasilkan **konsisten dengan standar Brainxiex Bot WhatsApp**.
+Tujuan utama:
 
-AI **tidak boleh** membuat struktur, nama file, atau pola kode di luar spesifikasi dokumen ini.
+1. AI bisa membuat fitur baru dengan struktur yang benar.
+2. AI bisa mengedit fitur yang sudah ada tanpa merusak sistem.
+3. AI konsisten terhadap style, flow, dan standar error handling project ini.
+
+Jika ada konflik, prioritaskan urutan ini:
+
+1. Jangan merusak bot.
+2. Ikuti kontrak file.
+3. Jaga kompatibilitas.
+4. Baru optimasi dan perapihan.
 
 ---
 
 ## Ruang Lingkup AI
 
-AI **DIPERBOLEHKAN**:
+AI dipersilakan:
 
-* Membuat **file JavaScript baru** di:
+- Membuat file JavaScript baru di:
+- `fitur/<Category>/<command>.js` (command biasa)
+- `fitur/_<nama>.js` (preload)
+- `addons/<nama>.js` (startup addons)
+- Mengedit file JavaScript yang diminta user secara eksplisit.
+- Memperbaiki bug logic di dalam function tanpa mengubah kontrak struktur.
 
-  * `fitur/<Category>/<command>.js` (**command biasa**)
-  * `fitur/_<nama>.js` (**preload**)
-  * `addons/<nama>.js` (**addons startup**)
-* Mengedit isi file JavaScript yang **ditentukan user secara eksplisit**
-* Menjaga kompatibilitas penuh dengan sistem bot
+AI dilarang:
 
-AI **DILARANG**:
+- Membuat file di luar `fitur/` dan `addons/` kecuali user minta eksplisit.
+- Mengubah file core (`index.js`, loader, handler utama) tanpa perintah user.
+- Mengubah gaya CommonJS ke ESM.
+- Mengubah signature function wajib.
+- Menghapus komentar penting milik developer.
 
-* Membuat file di luar folder `fitur/` dan `addons/`
-* Mengubah file core (index, loader, handler utama) kecuali diminta eksplisit
-* Mengubah gaya export atau signature function
-* Menghapus komentar dokumentasi penting
+---
+
+## Referensi Wajib: Dokumentasi Baileys
+
+Jika task menyentuh WhatsApp transport, event, media, auth, atau message payload, AI wajib merujuk dokumentasi Baileys.
+
+Prioritas sumber:
+
+1. Dokumentasi resmi Baileys (utama): `https://github.com/WhiskeySockets/Baileys`
+2. Referensi NPM package Baileys: `https://www.npmjs.com/package/baileys`
+3. Tipe/kontrak API dari package yang terpasang di project (misalnya `node_modules/baileys`).
+4. Implementasi existing project ini sebagai referensi kompatibilitas.
+
+Aturan kerja wajib:
+
+- Jangan mengarang nama event, method, atau struktur payload.
+- Jangan pakai API Baileys yang belum diverifikasi.
+- Jika menemukan perbedaan antara contoh internet dan versi package lokal, prioritaskan versi package lokal project.
+- Jika fitur Baileys tidak pasti/deprecated, AI wajib beri catatan asumsi dan fallback aman.
+
+Alur minimum saat menyentuh Baileys:
+
+1. Cek pola existing di codebase.
+2. Cek versi package yang dipakai project (`package.json` + package lokal).
+3. Cek kontrak method/event pada package Baileys lokal.
+4. Jika masih ragu, rujuk dokumentasi resmi Baileys dan referensi NPM.
+5. Baru menulis atau mengubah kode.
 
 ---
 
 ## Struktur Folder
 
-### `/addons`
-
-Digunakan untuk memodifikasi / menambahkan method atau properti ke objek `sock` **saat startup**.
-
 ### `/fitur`
 
-Berisi command/fitur bot berdasarkan kategori.
+Berisi command bot berdasarkan kategori.
+
+### `/addons`
+
+Berisi extender untuk objek `sock`, dieksekusi satu kali saat startup.
 
 ### Database Helper (`sock.func.db`)
 
-Untuk operasi file sebagai database sederhana, tersedia helper berikut.
+Helper ini dipakai untuk file-based database sederhana.
 
-**Catatan penting (WAJIB DIPAHAMI AI):**
+Catatan:
 
-* `lokasi` adalah **path string**, boleh relatif atau absolut.
-* Jika path **tidak diawali `/`**, maka dianggap **relatif terhadap root project bot**.
-* Folder tujuan **HARUS sudah ada**, helper ini **tidak membuat folder otomatis**.
+- `lokasi` adalah string path (relatif atau absolut).
+- Path yang tidak diawali `/` dianggap relatif ke root project.
+- Folder tujuan harus sudah ada (helper tidak membuat folder).
 
-Helper tersedia:
+API helper:
 
-* `sock.func.db.read(lokasi)` atau `sock.func.db.load(lokasi)`
-
-  * Fungsi: membaca file
-  * Return:
-
-    * `Buffer` untuk file biner
-    * `string` untuk file teks
-
-* `sock.func.db.write(lokasi, value)` atau `sock.func.db.save(lokasi, value)`
-
-  * Fungsi: menulis / overwrite file
-  * Parameter:
-
-    * `lokasi`: string path
-    * `value`: `string | Buffer`
-
-> `read` = `load` dan `write` = `save` adalah **alias**, **BUKAN fungsi berbeda**.
+- `sock.func.db.read(lokasi)` alias `sock.func.db.load(lokasi)`
+- Return `Buffer` untuk file biner, `string` untuk file teks.
+- `sock.func.db.write(lokasi, value)` alias `sock.func.db.save(lokasi, value)`
+- `value` wajib `string | Buffer`.
 
 Contoh:
 
 ```js
-const buffer = sock.func.db.read('/download/ikan.mp4');
-sock.func.db.save('/download/ikan_copy.mp4', buffer);
+const buffer = sock.func.db.read("/download/ikan.mp4");
+sock.func.db.save("/download/ikan_copy.mp4", buffer);
 ```
 
 ---
 
 ## Jenis Modul
 
-Sistem memiliki **3 jenis modul**:
+Sistem hanya mengenal 3 jenis modul:
 
-1. **Command** (fitur biasa)
-2. **Preload** (load sebelum command)
-3. **Addons** (load saat startup)
+1. Command
+2. Preload
+3. Addons
 
-Setiap jenis modul memiliki aturan berbeda dan **TIDAK BOLEH tertukar**.
+Ketiganya tidak boleh tertukar.
 
-Struktur folder:
+Struktur dasar:
 
-```
+```txt
 fitur/
-├─ <Category>/
-│  └─ <command>.js
-├─ _anti.js
+|- <Category>/
+|  |- <command>.js
+|- _anti.js
 addons/
-└─ myos.js
+|- myos.js
 ```
 
-AI **WAJIB** memastikan nama folder kategori **SAMA PERSIS** dengan nilai `category` di dalam file.
+Nilai `category` di file command wajib sama persis dengan nama folder kategori.
 
 ---
 
 ## Kontrak File Command (WAJIB)
 
-Setiap file command **HARUS** menggunakan template berikut **TANPA MODIFIKASI STRUKTUR**:
+Template command wajib:
 
 ```js
-const cmd = '<command>';
-const args = '<args>';
-const category = '<Category>';
+const cmd = "<command>";
+const args = "<args>";
+const category = "<Category>";
 
 async function message(sock, m, store) {
     const { sendMessage, config, resize, media2buffer, MyIP, func } = sock;
@@ -129,51 +151,48 @@ async function message(sock, m, store) {
 module.exports = { cmd, args, category, message };
 ```
 
+Aturan keras command:
+
+- Jangan ubah nama export: `cmd`, `args`, `category`, `message`.
+- Jangan ubah nama function: `message`.
+- Jangan ubah destructuring wajib `sock` dan `m`.
+- Tidak boleh mengganti CommonJS.
+
 ---
 
-## Kontrak File Preload (Load-Sebelum-Command)
+## Kontrak File Preload (WAJIB)
 
-Ciri preload:
+Preload:
 
-* Berada di folder `fitur/`
-* Nama file diawali `_`
-* Dieksekusi **setiap pesan masuk** sebelum command
+- Berada di folder `fitur/`
+- Nama file diawali `_`
+- Dieksekusi sebelum command handler utama
 
-Struktur wajib:
+Template preload:
 
 ```js
-const id = '_anti';
+const id = "_anti";
 
 async function action(sock, m, store) {
     // logic preload
-    // return boolean
+    // wajib return boolean
 }
 
 module.exports = { id, action };
 ```
 
-### Aturan Return Preload
+Nilai return preload:
 
-| Return | Arti                  |
-| -----: | --------------------- |
-|  false | Lanjut ke command     |
-|   true | Stop eksekusi command |
+- `false` -> lanjut ke command
+- `true` -> stop eksekusi command
 
-AI **WAJIB** mengembalikan `true` atau `false`.
+Preload wajib selalu return boolean.
 
 ---
 
-## Kontrak File Addons (Load Saat Startup)
+## Kontrak File Addons (WAJIB)
 
-Addons dieksekusi **SATU KALI** saat bot pertama kali berjalan.
-
-Tujuan addons:
-
-* Extend `sock`
-* Menambahkan utility global
-* Menyimpan state global
-
-Struktur wajib addons:
+Template addons:
 
 ```js
 module.exports = function (sock) {
@@ -182,62 +201,34 @@ module.exports = function (sock) {
 };
 ```
 
-### Contoh Addons
+Addons dilarang:
 
-**Addons (value):**
-
-```js
-// addons/myos.js
-const os = require('os');
-
-module.exports = function (sock) {
-    sock.myos = os.platform();
-    return sock;
-};
-```
-
-**Addons (function):**
-
-```js
-// addons/myos.js
-const os = require('os');
-
-module.exports = function (sock) {
-    sock.myos = () => os.platform();
-    return sock;
-};
-```
-
-### Aturan Keras Addons
-
-Addons **DILARANG**:
-
-* Mengirim pesan
-* Mengakses `m`
-* Meng-handle logic chat
-* Mengubah flow command
+- Mengirim pesan chat.
+- Mengakses objek `m`.
+- Menangani flow command/chat.
+- Mengubah flow handler pesan.
 
 ---
 
 ## Definisi Variabel Penting
 
-| Variabel           | Fungsi                    |
-| ------------------ | ------------------------- |
-| cmd                | Nama command tanpa prefix |
-| args               | Tipe argumen command      |
-| category           | Nama folder kategori      |
-| sock               | Instance utama bot        |
-| m                  | Data pesan                |
-| nyarios            | Shortcut reply            |
-| AxiosDenganHandler | Axios auto error handler  |
+| Variabel | Fungsi |
+| --- | --- |
+| `cmd` | Nama command tanpa prefix |
+| `args` | Deskripsi argumen command |
+| `category` | Nama kategori menu |
+| `sock` | Instance utama bot |
+| `m` | Objek pesan |
+| `nyarios` | Shortcut reply |
+| `AxiosDenganHandler` | HTTP client dengan handler internal |
 
 ---
 
-## Aturan Penulisan Logic
+## Standar Penulisan Logic Command
 
-### Validasi Argumen
+### 1) Validasi Argumen
 
-AI **DIPERBOLEHKAN** menggunakan salah satu dari pola berikut:
+Gunakan salah satu pola ini:
 
 ```js
 if (!isset(arg)) return nyarios(`Masukan sesuatu. Contoh: ${Prefix}${cmd} contoh`);
@@ -249,13 +240,76 @@ atau
 if (!arg) return nyarios(`Masukan sesuatu. Contoh: ${Prefix}${cmd} contoh`);
 ```
 
-Keduanya **VALID** selama tidak merusak flow logic command.
+Tambahan batas aman:
+
+- Gunakan `String(arg || "").trim()` untuk normalisasi input.
+- Batasi panjang input bila command memproses teks panjang (rekomendasi max 200 karakter).
+
+### 2) Error Handling Wajib
+
+Semua command yang memanggil API eksternal wajib pakai `try/catch`.
+
+Pola minimal:
+
+```js
+try {
+    // request API
+} catch (err) {
+    return nyarios("Terjadi gangguan server. Coba lagi nanti.");
+}
+```
+
+Jangan kirim stack trace mentah ke user.
+
+### 3) Parsing Response API Harus Aman
+
+Dilarang destructuring nested langsung dari hasil `await` karena rawan crash.
+
+Pola dilarang:
+
+```js
+const { data: { Barqah: { audio } } } = await AxiosDenganHandler.post(...);
+```
+
+Gunakan pola aman:
+
+```js
+const res = await AxiosDenganHandler.post(url, payload, { timeout: 15000 });
+const root = res?.data || {};
+const api = root?.Barqah || {};
+const {
+    error = false,
+    message = "",
+    audio = "",
+    title = "",
+    thumb = "",
+    link = ""
+} = api;
+```
+
+Jika response tidak sesuai shape, wajib fallback:
+
+```js
+if (error) return nyarios(message || "Server mengembalikan error.");
+```
+
+### 4) Timeout dan Retry
+
+Standar request eksternal:
+
+- Timeout default: 15 detik.
+- Retry maksimal: 1 kali (hanya untuk error jaringan sementara seperti timeout).
+- Setelah retry gagal, kirim pesan gagal yang ringkas.
+
+### 5) Presence State
+
+Jika command mengubah presence (`recording`, `composing`, dll), kembalikan lagi ke `available` pada semua jalur akhir (sukses maupun gagal).
 
 ---
 
-## Standar Pengiriman Pesan (Baileys – WAJIB)
+## Standar Pengiriman Pesan
 
-Semua pengiriman pesan **HARUS** menggunakan:
+Gunakan:
 
 ```js
 sock.sendMessage(jid, content, options);
@@ -263,8 +317,8 @@ sock.sendMessage(jid, content, options);
 
 Prioritas:
 
-* `nyarios()` untuk reply
-* `sock.sendMessage()` untuk non-reply
+- `nyarios()` untuk reply langsung ke command user.
+- `sock.sendMessage()` untuk pesan non-reply/format khusus.
 
 ---
 
@@ -274,57 +328,79 @@ Prioritas:
 
 Jenis file valid:
 
-1. `COMMAND` → `fitur/<Category>/<command>.js`
-2. `PRELOAD` → `fitur/_<nama>.js`
-3. `ADDONS` → `addons/<nama>.js`
+1. `COMMAND` -> `fitur/<Category>/<command>.js`
+2. `PRELOAD` -> `fitur/_<nama>.js`
+3. `ADDONS` -> `addons/<nama>.js`
 
-Jika jenis tidak disebutkan, AI **HARUS menyimpulkan dari konteks**.
-
----
+Jika jenis tidak disebutkan user, AI wajib menyimpulkan dari konteks.
 
 ### MODE: EDIT_FILE
 
-* Tidak mengubah struktur dasar
-* Hanya logic di dalam function terkait
-
----
+- Hanya ubah logic yang dibutuhkan.
+- Jangan ubah struktur wajib file.
+- Pertahankan kompatibilitas dengan loader existing.
 
 ### MODE: EXPLAIN_FILE
 
-* Hanya menjelaskan
-* **TIDAK BOLEH** mengubah kode
+- Hanya menjelaskan file.
+- Tidak mengubah kode.
 
 ---
 
 ## Kontrak Output AI (WAJIB)
 
-Saat AI membuat atau mengedit file, output **HARUS** persis dalam format berikut:
+Saat AI membuat atau mengedit file, output wajib:
 
-Path: <path>
+Path: `<path>`
 code:
 ```js
 // full code
 ```
 
-- `Path` **case-sensitive** (huruf P besar)
-- **TIDAK BOLEH** ada `ACTION`, `CREATE`, `EDIT`, atau teks lain di luar format
-- Output di luar format ini dianggap **INVALID**
+Ketentuan:
+
+- `Path` harus huruf besar di awal (case-sensitive).
+- Tidak boleh ada kata `ACTION`, `CREATE`, `EDIT`, atau metadata lain.
+- Output di luar format dianggap invalid.
+
+Catatan:
+
+- Untuk MODE `EXPLAIN_FILE`, AI tidak perlu format `Path/code`.
+
+---
+
+## Checklist Validasi Sebelum Kirim Jawaban
+
+Sebelum final output, AI wajib cek:
+
+1. Path file sesuai aturan folder.
+2. `category` sama persis dengan nama folder.
+3. `module.exports` tidak berubah.
+4. Signature function wajib tidak berubah.
+5. Tidak ada variabel undefined.
+6. Semua jalur error mengirim respon aman ke user.
+7. API call memakai parsing response yang aman.
+8. Tidak ada nested destructuring berisiko pada hasil `await`.
+9. Jika ada presence update, status dikembalikan ke `available`.
+10. Tidak menambah dependency/library tanpa izin user.
+11. Method/event Baileys yang dipakai sudah terverifikasi di docs atau tipe package lokal.
+12. Tidak menggunakan API Baileys deprecated tanpa fallback atau catatan kompatibilitas.
 
 ---
 
 ## Larangan Keras
 
-AI **DILARANG**:
+AI dilarang:
 
-- Mengubah `module.exports`
-- Mengganti destructuring `sock` dan `m`
-- Menambah library tanpa izin
-- Mengubah gaya CommonJS
+- Mengubah `module.exports` wajib.
+- Mengganti destructuring wajib `sock` dan `m`.
+- Menambah library baru tanpa izin user.
+- Mengubah gaya CommonJS.
+- Menyimpan kredensial/API key baru ke hardcoded file tanpa perintah user.
 
 ---
 
 ## Catatan Developer
 
-Dokumen ini adalah **KONTRAK KERAS**.
-
-Jika satu aturan saja dilanggar, output AI **TIDAK VALID** dan **TIDAK BOLEH DIGUNAKAN**.
+Dokumen ini adalah kontrak keras.
+Satu pelanggaran aturan membuat output dianggap tidak valid.
