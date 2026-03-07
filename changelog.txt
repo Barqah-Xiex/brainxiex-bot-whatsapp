@@ -1,3 +1,5 @@
+[v2.18.0] - penambahan auto restart - Sabtu 2026-03-07 09:33:37
+
 [v2.17.12] - Cuma Fix Beberapa Bug - Sabtu 2026-02-28 13:55:11
 
 [v2.17.11] - Cuma Fix Beberapa Bug - Sabtu 2026-02-28 12:23:05

@@ -68,6 +68,7 @@ const config = {
 
     // BOT SETTINGS
     Prefix: `.`, // Prefix Bot
+    autoRestart:  24*60*60*1000, // default 24 jam sekali restart, gunakan format ms, set ke 0 untuk mematikan
     banner: `./asset/banner.jpg`, // Lokasi Banner
     welcomer: true, // Tampilan Masuk Dan Keluar Grup
     promote: false, // Tampilan Dijadikan Admin Dan Di Turunkan Sebagai Admin

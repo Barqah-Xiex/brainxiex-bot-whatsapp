@@ -1,6 +1,7 @@
 const { spawn } = require('child_process');
 const { platform } = require("os");
 
+if(typeof process.env.pm_id !== "undefined") console.log("[PM2]","pm2 terdeteksi di ID",process.env.pm_id)
 
 async function run() {
     if(process.argv[2] == `y`){
@@ -11,6 +12,14 @@ async function run() {
             if(config.multibot && config.multibot[0]){
                 config.multibot.forEach((v,i) => {
                     console.log("LOADED",v.Nama_Bot,v.Nomor_Bot)
+                    if(typeof v.autoRestart == "undefined") v.autoRestart = 24*60*60*1000;
+                    if(v.autoRestart){
+                      console.log("[Config]","autoRestart dalam", v.autoRestart/(60*1000),"menit")
+                      setTimeout(() => {
+                        console.log("[config.autoRestart]","Bot Restart !");
+                        process.exit(1);
+                      }, v.autoRestart);
+                    }
                     require("./liana")(v);
                 })
             }else{
