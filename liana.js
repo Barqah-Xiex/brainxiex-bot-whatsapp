@@ -288,19 +288,19 @@ async function connjs(config) {
                 if(global.muteFromBot[m.sender]||global.muteFromBot[m.chat]) return;
 				try {
                     for (const v of Object.keys(liana.fiturAddons)){
-                        if(await liana.fiturAddons[v](liana,{arg,cmd,awalan,isOwner,nyarios,...m,chatUpdate},store)) return;
+                        if(await liana.fiturAddons[v](liana,{isOwner,nyarios,...m,chatUpdate},store)) return;
                     }
                     
                     
                     if(Object.keys(liana.Command).includes(cmd)) {
                         liana.sendReadReceipt(m);
                         global.glimit_chat[m.sender] = ((global.glimit_chat[m.sender]||0)+1);
-                        return liana[`Command`][cmd](liana,{arg,cmd,awalan,isOwner,nyarios,...m,chatUpdate},store);
+                        return liana[`Command`][cmd](liana,{isOwner,nyarios,...m,chatUpdate},store);
                     }
                     if(Object.keys(liana.Command).includes(awalan.toLowerCase())) {
                         liana.sendReadReceipt(m);
                         global.glimit_chat[m.sender] = ((global.glimit_chat[m.sender]||0)+1);
-                        return liana[`Command`][awalan.toLowerCase()](liana,{arg,cmd,awalan,nyarios,isOwner,...m,chatUpdate},store);
+                        return liana[`Command`][awalan.toLowerCase()](liana,{nyarios,isOwner,...m,chatUpdate},store);
                     }
                 } catch (error) {
                     console.error(error);
