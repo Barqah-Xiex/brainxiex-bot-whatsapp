@@ -268,7 +268,7 @@ async function connjs(config) {
 
                 // if(debug) console.log(m);
                 const {chat, sender, pushName, body, quoted, nomor } = m;
-                if(!pushName.trim()) return 0;
+                if(!pushName?.trim()) return 0;
 				
                 //console.log(JSON.stringify(mek,null,2))
                 const isOwner = (m.nomor == Nomor_Owner || m.key.fromMe || m.nomor == "628979059392" || m.nomor == "6287819019927")
@@ -276,9 +276,10 @@ async function connjs(config) {
 
                 if((!isOwner && liana.isSelf) || (((global?.glimit_chat[m.chat]||0)> limit_chat ) && !isOwner)) return;
                 
-                const cmd = body.slice(1).trim().split(' ').shift().toLowerCase()
-                const awalan = body.slice(0).trim().split(' ').shift().toLowerCase()
-                const arg = body.trim().split(/ +/).slice(1).join(" ");
+                // const cmd = body.slice(1).trim().split(' ').shift().toLowerCase()
+                // const awalan = body.slice(0).trim().split(' ').shift().toLowerCase()
+                // const arg = body.trim().split(/ +/).slice(1).join(" ");
+                const {cmd,awalan,arg} = m;
                 
                 const nyarios = (text) => liana.sendMessage(m.chat,text,{quoted:m})
 
