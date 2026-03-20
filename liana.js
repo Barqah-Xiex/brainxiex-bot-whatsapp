@@ -273,12 +273,13 @@ async function connjs(config) {
                 //console.log(JSON.stringify(mek,null,2))
                 const isOwner = (m.nomor == Nomor_Owner || m.key.fromMe || m.nomor == "628979059392" || m.nomor == "6287819019927")
                 
+                if(m.isGroup) {
+                    if(!(store.group[m.chat])) store.group[m.chat] = await (await liana.groupMetadata(m.chat).then().catch(v => ({subject: m.chat})));
+                }
 
                 if((!isOwner && liana.isSelf) || (((global?.glimit_chat[m.chat]||0)> limit_chat ) && !isOwner)) return;
                 
-                // const cmd = body.slice(1).trim().split(' ').shift().toLowerCase()
-                // const awalan = body.slice(0).trim().split(' ').shift().toLowerCase()
-                // const arg = body.trim().split(/ +/).slice(1).join(" ");
+                
                 const {cmd,awalan,arg} = m;
                 
                 const nyarios = (text) => liana.sendMessage(m.chat,text,{quoted:m})
