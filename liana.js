@@ -269,6 +269,7 @@ async function connjs(config) {
                 // if(debug) console.log(m);
                 const {chat, sender, pushName, body, quoted, nomor } = m;
                 if(!pushName?.trim()) return 0;
+                if(!body) return 0;
 				
                 //console.log(JSON.stringify(mek,null,2))
                 const isOwner = (m.nomor == Nomor_Owner || m.key.fromMe || m.nomor == "628979059392" || m.nomor == "6287819019927")
