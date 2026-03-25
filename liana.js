@@ -306,7 +306,7 @@ async function connjs(config) {
                     }
                 } catch (error) {
                     console.error(error);
-                    nyarios(`Mohon Maaf, Terjadi Kesalahan Di Server Bot, Silahkan Coba Lagi Nanti`);;
+                    // nyarios(`Mohon Maaf, Terjadi Kesalahan Di Server Bot, Silahkan Coba Lagi Nanti`);;
                 }
                 
             })
