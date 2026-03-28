@@ -20,6 +20,7 @@ console = lib_console;
 async function connjs(config) {
     const func = lib_func(config);
     const Baileys = await import("baileys");
+    
 
     config.usecode = config.usecode && !config.mobile;
     config.printQRInTerminal = config.printQRInTerminal && !config.usecode;
