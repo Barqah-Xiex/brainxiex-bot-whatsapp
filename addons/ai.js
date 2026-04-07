@@ -31,7 +31,7 @@ module.exports = function (Barqah){
         global.cache[m.chat].ai = global.cache[m.chat].ai||[];
         const messages = global.cache[m.chat].ai;
         try{
-            messages.push({role:'user',content:prompt});
+            messages.push({role:'user',content:`${prompt}\n\nDATA:\n${JSON.stringify(await m.summarize())}`});
             const data = await axios.post(baseURL+"/api/ai/chat/completions",{
                 ...config.AI_Payload_Default,
                 yourname: `${m.pushName||m.nomor}`,
