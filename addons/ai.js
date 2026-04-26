@@ -7,13 +7,7 @@ module.exports = function (Barqah){
         const {isset,fs} = func;
         
 		let legacy = true;
-        const payload  = {
-            ...config.AI_Payload_Default,
-            yourname: `${m.pushName||m.nomor}`,
-            messages,
-            model: config?.AI_Payload_Default?.model || model,
-            legacy
-        }
+        
         
         global.cache = global.cache||{};
         global.cache[m.chat] = global.cache[m.chat]||{};
@@ -38,6 +32,7 @@ module.exports = function (Barqah){
         global.cache[m.chat].ai = global.cache[m.chat].ai||[];
         const messages = global.cache[m.chat].ai;
         
+        
 
         // id,
         // remoteJid,
@@ -50,11 +45,18 @@ module.exports = function (Barqah){
         // groupDesc 
         let sum = await m.summarize();
         
-        if(sum.isGroup) payload.system += `\n\nData Group:${JSON.stringify({groupName:sum.groupName,groupDesc:sum.groupDesc})}`
+        if(sum.isGroup) config.AI_Payload_Default.system += `\n\nData Group:${JSON.stringify({groupName:sum.groupName,groupDesc:sum.groupDesc})}`
         delete sum.groupName;
         delete sum.groupDesc;
         messages.push({role:'user',content:`${prompt}\n\nData Chat:\n${JSON.stringify(sum)}`});
         try{
+            const payload  = {
+                ...config.AI_Payload_Default,
+                yourname: `${m.pushName||m.nomor}`,
+                messages,
+                model: config?.AI_Payload_Default?.model || model,
+                legacy
+            }
             const data = await axios.post(baseURL+"/api/ai/chat/completions",
             payload,
             {
