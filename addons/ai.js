@@ -7,6 +7,13 @@ module.exports = function (Barqah){
         const {isset,fs} = func;
         
 		let legacy = true;
+        const payload  = {
+            ...config.AI_Payload_Default,
+            yourname: `${m.pushName||m.nomor}`,
+            messages,
+            model: config?.AI_Payload_Default?.model || model,
+            legacy
+        }
         
         global.cache = global.cache||{};
         global.cache[m.chat] = global.cache[m.chat]||{};
@@ -30,15 +37,27 @@ module.exports = function (Barqah){
         // const menu = `${Object.keys(sock.category).map(v => `*₊⁺${v}⁺₊*\n${sock.category[v].map(v => `✧${Prefix}${v}`).join(`\n`)}`).join(`\n\n`)}`
         global.cache[m.chat].ai = global.cache[m.chat].ai||[];
         const messages = global.cache[m.chat].ai;
+        
+
+        // id,
+        // remoteJid,
+        // fromMe,
+        // isGroup,
+        // senderLid,
+        // senderJid,
+        // pushName,
+        // groupName,
+        // groupDesc 
+        let sum = await m.summarize();
+        
+        if(sum.isGroup) payload.system += `\n\nData Group:${JSON.stringify({groupName:sum.groupName,groupDesc:sum.groupDesc})}`
+        delete sum.groupName;
+        delete sum.groupDesc;
+        messages.push({role:'user',content:`${prompt}\n\nData Chat:\n${JSON.stringify(sum)}`});
         try{
-            messages.push({role:'user',content:`${prompt}\n\nDATA:\n${JSON.stringify(await m.summarize())}`});
-            const data = await axios.post(baseURL+"/api/ai/chat/completions",{
-                ...config.AI_Payload_Default,
-                yourname: `${m.pushName||m.nomor}`,
-                messages,
-                model: config?.AI_Payload_Default?.model || model,
-                legacy
-            },{
+            const data = await axios.post(baseURL+"/api/ai/chat/completions",
+            payload,
+            {
                 headers: {
                     authorization: 'Bearer '+apikey,
                 }
