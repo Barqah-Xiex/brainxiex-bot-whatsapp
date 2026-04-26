@@ -48,7 +48,15 @@ module.exports = function (Barqah){
         if(sum.isGroup) config.AI_Payload_Default.system += `\n\nData Group:${JSON.stringify({groupName:sum.groupName,groupDesc:sum.groupDesc})}`
         delete sum.groupName;
         delete sum.groupDesc;
-        messages.push({role:'user',content:`${prompt}\n\nData Chat:\n${JSON.stringify(sum)}`});
+        messages.push({role:'user',content:`${prompt}\n\nData Chat:\n${JSON.stringify({
+            id: sum.id,
+            remoteJid: sum.remoteJid,
+            fromMe: sum.fromMe,
+            isGroup: sum.isGroup,
+            senderLid: sum.senderLid,
+            senderJid: sum.senderJid,
+            pushName: sum.pushName,
+        })}`});
         try{
             const payload  = {
                 ...config.AI_Payload_Default,
