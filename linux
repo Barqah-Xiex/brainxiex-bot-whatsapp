@@ -38,7 +38,7 @@ case "$1" in
 
     if has_cmd rsync; then
       # copy SEMUA kecuali folder 'fitur' dan 'cmd'
-      rsync -a --exclude='fitur' --exclude='cmd' . ..
+      rsync -a . ..
     else
       # fallback tanpa rsync
       find . -mindepth 1 -maxdepth 1 -exec cp -rf {} .. \;
