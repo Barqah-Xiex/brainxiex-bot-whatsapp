@@ -41,7 +41,7 @@ case "$1" in
       rsync -a --exclude='fitur' --exclude='cmd' . ..
     else
       # fallback tanpa rsync
-      find . -mindepth 1 -maxdepth 1 ! -name 'fitur' ! -name 'cmd' -exec cp -rf {} .. \;
+      find . -mindepth 1 -maxdepth 1 -exec cp -rf {} .. \;
     fi
 
     cd .. || exit 1
