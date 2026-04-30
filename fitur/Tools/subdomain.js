@@ -11,7 +11,7 @@ async function message(sock, m, store) {
     const {isset, fs,sleep} = func
     
     if(!isset(arg)) return nyarios(`Contoh Masukan: ${Prefix}${cmd} xiex.my.id`);
-    const {data:{Barqah}} = await sock.sendRequest(m).post(`https://xiex.my.id/api/tools/subdomain`,{apikey,domain:arg});
-    nyarios(Barqah.join("\n"))
+    const {data:{Barqah}} = await sock.sendRequest(m).post(`${baseURL}/api/tools/subdomain`,{apikey,domain:arg});
+    nyarios(Barqah.map(v => `${v.subdomain} - ${v.ip} ${v.cloudflare ? "cloudflare" : "dns"}`).join("\n"))
 }
 module.exports = {cmd,args,category,message};
