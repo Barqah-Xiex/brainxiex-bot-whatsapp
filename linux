@@ -72,7 +72,7 @@ case "$1" in
         ;;
       force)
         cp config.js /tmp/config_backup.js
-        sh "$0" install
+        sh "$0" reinstall
         cp /tmp/config_backup.js config.js
         ;;
       base)

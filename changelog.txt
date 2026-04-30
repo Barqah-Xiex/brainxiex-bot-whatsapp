@@ -1,3 +1,5 @@
+[v2.20.2] - Cuma Fix Beberapa Bug - Kamis 2026-04-30 16:48:35
+
 [v2.20.1] - Cuma Fix Beberapa Bug - Kamis 2026-04-30 16:47:48
 
 [v2.20.0] - fix fitur subdomain - Kamis 2026-04-30 16:43:31
