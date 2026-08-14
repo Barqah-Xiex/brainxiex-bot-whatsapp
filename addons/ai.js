@@ -63,7 +63,7 @@ module.exports = function (Barqah){
                     authorization: 'Bearer '+apikey,
                 }
             }).then(v => v.data);
-            global.cache[m.chat].ai = data.messages;
+            global.cache[m.chat].ai = data.session;
             const answer = data.answer;
             const error = data?.error;
             if(error){
