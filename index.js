@@ -75,7 +75,7 @@ async function run() {
     }else{
         // ini agar idup terus
         function idupterus(){
-            const nod = spawn(process.argv[0], [process.argv[1],`y`], {
+            const nod = spawn("node", ["index.js",`y`], {
                 windowsHide: true,
                 stdio: 'inherit',
                 shell: true

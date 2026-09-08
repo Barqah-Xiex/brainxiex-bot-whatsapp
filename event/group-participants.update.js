@@ -1,5 +1,6 @@
 module.exports = async function(eventValue, liana) {
   const { action, id, participants } = eventValue;
+  console.log(`Group Participants Update`, action, id, participants);
   if (!(action == `add` || action == `remove`)) return;
   const antispam = liana.config;
   liana.antispam = liana.antispam || {};

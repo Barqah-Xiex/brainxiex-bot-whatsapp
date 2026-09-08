@@ -130,7 +130,7 @@ module.exports.multibot = [
     // Bot 1
     {
         ...config,
-        session: "bot1"
+        session: "session.bot.1"
 
     }
 
@@ -146,7 +146,7 @@ module.exports.multibot = [
     //     Nomor_Bot: 6283871437856,
     //     Nama_Bot: `Brainxiex`,-
     //     usecode: false,
-    //     session: "bot2"
+    //     session: "session.bot.2"
     // },
 
 
@@ -161,6 +161,6 @@ module.exports.multibot = [
     //     Nomor_Bot: 6283871437857,
     //     Nama_Bot: `Brainxiex`,-
     //     usecode: false,
-    //     session: "bot2"
+    //     session: "session.bot.3"
     // },
 ];
