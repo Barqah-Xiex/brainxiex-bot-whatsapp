@@ -1,128 +1,405 @@
 #!/usr/bin/env sh
 
-# Ambil nama folder kerja saat ini
 DIRNAME=$(basename "$PWD")
+PLUGIN_FILE="./database/plugin.txt"
+DATABASE_BACKUP="/tmp/brainxiex_database_backup"
+PLUGIN_BACKUP="/tmp/brainxiex_plugin_backup"
 
-# Helper: cek command
 has_cmd() {
-  command -v "$1" >/dev/null 2>&1
+    command -v "$1" >/dev/null 2>&1
 }
 
-case "$1" in
-  run)
-    if [ ! -d "node_modules" ]; then
-      echo "Folder 'node_modules' tidak ditemukan. Menjalankan 'npm install'..."
-      npm install || exit 1
-    fi
-    node .
-    ;;
+plugin_url() {
+    case "$1" in
+        github:*|gh:*)
+            SOURCE=${1#*:}
+            USER=${SOURCE%%/*}
+            SOURCE=${SOURCE#*/}
+            REPO=${SOURCE%%/*}
 
-  bun-run)
-    if ! has_cmd bun; then
-      echo "Bun tidak ditemukan. Menginstal Bun..."
-      curl -fsSL https://bun.sh/install | bash || exit 1
-      # reload env bila perlu
-      [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
-    fi
-    if [ ! -d "node_modules" ]; then
-      echo "Folder 'node_modules' tidak ditemukan. Menjalankan 'bun install'..."
-      bun install || exit 1
-    fi
-    bun .
-    ;;
+            if [ "$SOURCE" = "$REPO" ]; then
+                printf '%s' "https://raw.githubusercontent.com/$USER/$REPO/refs/heads/main"
+            else
+                FOLDER=${SOURCE#*/}
+                printf '%s' "https://raw.githubusercontent.com/$USER/$REPO/refs/heads/main/$FOLDER"
+            fi
+            ;;
 
-  install)
+        brainxiex:*)
+            printf '%s' "https://brainxiex.com/${1#brainxiex:}"
+            ;;
+
+        *)
+            printf '%s' "$1"
+            ;;
+    esac
+}
+
+backup_database() {
+    rm -rf "$DATABASE_BACKUP"
+
+    if [ -d "./database" ]; then
+        cp -rf "./database" "$DATABASE_BACKUP"
+        echo "Database berhasil diselamatkan"
+    fi
+}
+
+restore_database() {
+    if [ -d "$DATABASE_BACKUP" ]; then
+        mkdir -p "./database"
+        cp -rf "$DATABASE_BACKUP"/. "./database/"
+        echo "Database berhasil dipulihkan"
+    fi
+}
+
+backup_plugin() {
+    if [ -f "$PLUGIN_FILE" ]; then
+        cp "$PLUGIN_FILE" "$PLUGIN_BACKUP"
+    fi
+}
+
+restore_plugin() {
+    if [ -f "$PLUGIN_BACKUP" ]; then
+        mkdir -p "$(dirname "$PLUGIN_FILE")"
+        cp "$PLUGIN_BACKUP" "$PLUGIN_FILE"
+    fi
+}
+
+plugin_install() {
+    [ -n "$1" ] || {
+        echo "Usage: $0 plugin install <source>"
+        exit 1
+    }
+
+    URL=$(plugin_url "$1")
+
+    echo "Menginstal plugin: $1"
+    echo "Source: $URL"
+
+    if ! curl -fsSL "$URL/install.sh" | sh; then
+        echo "Gagal menginstal plugin"
+        exit 1
+    fi
+
+    mkdir -p "$(dirname "$PLUGIN_FILE")"
+
+    if ! grep -Fxq "$1" "$PLUGIN_FILE" 2>/dev/null; then
+        echo "$1" >> "$PLUGIN_FILE"
+    fi
+
+    echo "Plugin berhasil diinstal"
+}
+
+plugin_uninstall() {
+    [ -n "$1" ] || {
+        echo "Usage: $0 plugin uninstall <source>"
+        exit 1
+    }
+
+    URL=$(plugin_url "$1")
+
+    echo "Menghapus plugin: $1"
+
+    if ! curl -fsSL "$URL/uninstall.sh" | sh; then
+        echo "Gagal menghapus plugin"
+        exit 1
+    fi
+
+    if [ -f "$PLUGIN_FILE" ]; then
+        grep -Fvx "$1" "$PLUGIN_FILE" > "$PLUGIN_FILE.tmp" 2>/dev/null || true
+        mv "$PLUGIN_FILE.tmp" "$PLUGIN_FILE"
+    fi
+
+    echo "Plugin berhasil dihapus"
+}
+
+plugin_list() {
+    echo "Plugin terinstal"
+    echo "────────────────────────────────────────"
+
+    if [ ! -f "$PLUGIN_FILE" ] || [ ! -s "$PLUGIN_FILE" ]; then
+        echo "Tidak ada plugin yang terinstal."
+        return
+    fi
+
+    NUMBER=1
+
+    while IFS= read -r PLUGIN; do
+        [ -n "$PLUGIN" ] || continue
+
+        URL=$(plugin_url "$PLUGIN")
+
+        printf '%s. %s\n' "$NUMBER" "$PLUGIN"
+        printf '   %s\n' "$URL"
+
+        NUMBER=$((NUMBER + 1))
+    done < "$PLUGIN_FILE"
+
+    echo "────────────────────────────────────────"
+    echo "Total: $((NUMBER - 1)) plugin"
+}
+
+plugin_install_all() {
+    if [ ! -f "$PLUGIN_FILE" ] || [ ! -s "$PLUGIN_FILE" ]; then
+        echo "Tidak ada plugin yang terinstal."
+        return
+    fi
+
+    echo "Menginstal semua plugin..."
+    echo ""
+
+    while IFS= read -r PLUGIN; do
+        [ -n "$PLUGIN" ] || continue
+
+        URL=$(plugin_url "$PLUGIN")
+
+        printf '→ %s\n' "$PLUGIN"
+
+        if curl -fsSL "$URL/install.sh" | sh; then
+            echo "✓ Berhasil"
+        else
+            echo "✗ Gagal"
+        fi
+
+        echo ""
+    done < "$PLUGIN_FILE"
+}
+
+install_base() {
     DATE=$(date +"%Y%m%d" 2>/dev/null || date +%Y%m%d)
-    git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git "$DATE" || exit 1
+
+    git clone \
+        https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git \
+        "$DATE" || exit 1
+
     cd "$DATE" || exit 1
 
     if has_cmd rsync; then
-      # copy SEMUA kecuali folder 'fitur' dan 'cmd'
-      rsync -a . ..
+        rsync -a . ..
     else
-      # fallback tanpa rsync
-      find . -mindepth 1 -maxdepth 1 -exec cp -rf {} .. \;
+        find . -mindepth 1 -maxdepth 1 -exec cp -rf {} .. \;
     fi
 
     cd .. || exit 1
     rm -rf "$DATE"
 
     npm install || exit 1
-
-    # opsional auto executable
     chmod +x linux 2>/dev/null || true
-    ;;
+}
 
-  reinstall)
-    sh "$0" uninstall
-    sh "$0" install
-    ;;
+reinstall() {
+    backup_database
+    backup_plugin
 
-  update)
-    case "$2" in
-      hard)
-        git pull || exit 1
-        npm install || exit 1
-        ;;
-      soft)
-        cp config.js /tmp/config_backup.js
-        git pull || exit 1
-        cp /tmp/config_backup.js config.js
-        npm install || exit 1
-        ;;
-      force)
-        cp config.js /tmp/config_backup.js
-        sh "$0" reinstall
-        cp /tmp/config_backup.js config.js
-        ;;
-      base)
-        cp config.js /tmp/config_backup.js
-        DATE=$(date +"%Y%m%d" 2>/dev/null || date +%Y%m%d)
-        git clone https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git "$DATE" || exit 1
-        cd "$DATE" || exit 1
-        if has_cmd rsync; then
-          rsync -a --exclude='fitur' --exclude='cmd' --exclude='event' . ..
-        else
-          find . -mindepth 1 -maxdepth 1 ! -name 'fitur' ! -name 'cmd' -name 'event' -exec cp -rf {} .. \;
+    sh "$0" uninstall || exit 1
+    sh "$0" install || exit 1
+
+    restore_database
+    restore_plugin
+
+    rm -rf "$DATABASE_BACKUP" "$PLUGIN_BACKUP"
+
+    plugin_install_all
+}
+
+case "$1" in
+    run)
+        if [ ! -d "node_modules" ]; then
+            echo "Folder 'node_modules' tidak ditemukan."
+            echo "Menjalankan 'npm install'..."
+            npm install || exit 1
         fi
+
+        node .
+        ;;
+
+    bun-run)
+        if ! has_cmd bun; then
+            echo "Bun tidak ditemukan. Menginstal Bun..."
+            curl -fsSL https://bun.sh/install | bash || exit 1
+            [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+        fi
+
+        if [ ! -d "node_modules" ]; then
+            echo "Folder 'node_modules' tidak ditemukan."
+            echo "Menjalankan 'bun install'..."
+            bun install || exit 1
+        fi
+
+        bun .
+        ;;
+
+    install)
+        install_base
+        ;;
+
+    reinstall)
+        reinstall
+        ;;
+
+    update)
+        case "$2" in
+            hard)
+                backup_database
+                backup_plugin
+
+                git pull || exit 1
+                npm install || exit 1
+
+                restore_database
+                restore_plugin
+
+                rm -rf "$DATABASE_BACKUP" "$PLUGIN_BACKUP"
+
+                plugin_install_all
+                ;;
+
+            soft)
+                cp config.js /tmp/config_backup.js
+
+                backup_database
+                backup_plugin
+
+                git pull || exit 1
+                npm install || exit 1
+
+                restore_database
+                restore_plugin
+                cp /tmp/config_backup.js config.js
+
+                rm -rf "$DATABASE_BACKUP" "$PLUGIN_BACKUP"
+
+                plugin_install_all
+                ;;
+
+            force)
+                cp config.js /tmp/config_backup.js
+
+                backup_database
+                backup_plugin
+
+                sh "$0" reinstall || exit 1
+
+                cp /tmp/config_backup.js config.js
+                restore_database
+                restore_plugin
+
+                rm -rf "$DATABASE_BACKUP" "$PLUGIN_BACKUP"
+
+                plugin_install_all
+                ;;
+
+            base)
+                cp config.js /tmp/config_backup.js
+                backup_database
+
+                DATE=$(date +"%Y%m%d" 2>/dev/null || date +%Y%m%d)
+
+                git clone \
+                    https://github.com/Barqah-Xiex/brainxiex-bot-whatsapp.git \
+                    "$DATE" || exit 1
+
+                cd "$DATE" || exit 1
+
+                if has_cmd rsync; then
+                    rsync -a \
+                        --exclude='fitur' \
+                        --exclude='cmd' \
+                        --exclude='event' \
+                        --exclude='database' \
+                        . ..
+                else
+                    find . -mindepth 1 -maxdepth 1 \
+                        ! -name 'fitur' \
+                        ! -name 'cmd' \
+                        ! -name 'event' \
+                        ! -name 'database' \
+                        -exec cp -rf {} .. \;
+                fi
+
+                cd .. || exit 1
+                rm -rf "$DATE"
+
+                npm install || exit 1
+                chmod +x linux 2>/dev/null || true
+
+                cp /tmp/config_backup.js config.js
+                restore_database
+
+                rm -rf "$DATABASE_BACKUP"
+                ;;
+
+            *)
+                echo "Usage: $0 update {hard|soft|force|base}"
+                echo ""
+                echo "  hard   git pull + database + plugin"
+                echo "  soft   config + database + plugin"
+                echo "  force  reinstall + config + database + plugin"
+                echo "  base   rebase + config + database"
+                ;;
+        esac
+        ;;
+
+    plugin)
+        case "$2" in
+            install)
+                plugin_install "$3"
+                ;;
+
+            uninstall)
+                plugin_uninstall "$3"
+                ;;
+
+            list)
+                plugin_list
+                ;;
+
+            install-all)
+                plugin_install_all
+                ;;
+
+            *)
+                echo "Usage: $0 plugin <command> [source]"
+                echo ""
+                echo "  install <source>     install plugin"
+                echo "  uninstall <source>   uninstall plugin"
+                echo "  list                 lihat plugin"
+                echo "  install-all          install ulang semua plugin"
+                ;;
+        esac
+        ;;
+
+    uninstall)
         cd .. || exit 1
-        rm -rf "$DATE"
-        npm install || exit 1
-        chmod +x linux 2>/dev/null || true
-        cp /tmp/config_backup.js config.js
+
+        for item in "$DIRNAME"/*; do
+            name=$(basename "$item")
+
+            if [ "$name" != "linux" ] && [ "$name" != "windows.bat" ]; then
+                rm -rf "$item"
+                echo "Menghapus $item"
+            fi
+        done
+
+        echo "Uninstalled kecuali ./linux dan ./windows.bat"
+
+        cd "$DIRNAME" || exit 1
         ;;
-      *)
-        echo "Usage: $0 update {hard|soft|force|base}"
-        echo "  hard   hapus config (default git)"
-        echo "  soft   backup & restore config.js"
-        echo "  force  reinstall + restore config.js"
-        echo "  base   rebase dari repo + restore config.js"
+
+    *)
+        echo "Usage: $0 <command>"
+        echo ""
+        echo "  run                         jalankan dengan node"
+        echo "  bun-run                     jalankan dengan bun"
+        echo "  install                     clone dan install"
+        echo "  reinstall                   uninstall + install + plugin"
+        echo "  update hard|soft|force|base update repo"
+        echo "  uninstall                   hapus file kecuali linux/windows.bat"
+        echo ""
+        echo "Plugin:"
+        echo "  plugin install <source>     install plugin"
+        echo "  plugin uninstall <source>   uninstall plugin"
+        echo "  plugin list                 lihat plugin terinstal"
+        echo "  plugin install-all          install ulang semua plugin"
         ;;
-    esac
-    ;;
-
-  uninstall)
-    cd .. || exit 1
-    for item in "$DIRNAME"/*; do
-      name=$(basename "$item")
-      if [ "$name" != "linux" ] && [ "$name" != "windows.bat" ]; then
-        rm -rf "$item"
-        echo "Menghapus $item"
-      fi
-    done
-    echo "Uninstalled kecuali ./linux dan ./windows.bat"
-    cd "$DIRNAME" || exit 1
-    ;;
-
-  *)
-    echo "Usage: $0 <command>"
-    echo ""
-    echo "  run                      jalankan dengan node"
-    echo "  bun-run                  jalankan dengan bun"
-    echo "  install                  clone dan install"
-    echo "  reinstall                uninstall + install"
-    echo "  update hard|soft|force   update repo"
-    echo "  uninstall                hapus file kecuali linux dan windows.bat"
-    ;;
-
 esac

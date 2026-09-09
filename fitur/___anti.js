@@ -196,7 +196,7 @@ Dari Abu Hurairah radhiyallahu ‘anhu, Rasulullah SAW bersabda:
         isBotAdmin ? await sock.kick(id, m.sender) : nyarios("bot bukan admin tidak dapat mengkick !!!")
     }
     if(antidelete && m.isDeleted){
-        const {deletedMessage} = JSON.parse(m.body)||{};
+        const {deletedMessage} = m?.message?.protocolMessage||{};
         if(!isset(deletedMessage)) return;
         console.log(deletedMessage)
         try{
