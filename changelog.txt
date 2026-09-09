@@ -1,3 +1,5 @@
+[v2.24.0] - add plugin - Rabu 2026-09-09 15:30:15
+
 [v2.23.2] - Cuma Fix Beberapa Bug - Rabu 2026-09-09 15:29:35
 
 [v2.23.1] - Cuma Fix Beberapa Bug - Selasa 2026-09-08 12:37:03
