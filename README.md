@@ -49,7 +49,7 @@ Bot WhatsApp multifungsi berbasis Node.js, dikembangkan oleh Brainxiex Developme
 
 ## Install Plugin
 plugin official bisa di dapatkan di sini
-[Brainxiex Bot Whatsapp Plugin]()
+[Brainxiex Bot Whatsapp Plugin](https://brainxiex.com/git/botwa-plugin)
 
 ## Kontribusi
 

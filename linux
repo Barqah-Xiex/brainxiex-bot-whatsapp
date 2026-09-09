@@ -25,7 +25,7 @@ plugin_url() {
             fi
             ;;
 
-        brainxiex:*)
+        brainxiex:*|bx:*)
             printf '%s' "https://brainxiex.com/${1#brainxiex:}"
             ;;
 
