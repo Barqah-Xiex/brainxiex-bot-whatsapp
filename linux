@@ -39,6 +39,7 @@ backup_database() {
     rm -rf "$DATABASE_BACKUP"
 
     if [ -d "./database" ]; then
+        rm -rf "./database/msg/*"  "./database/lid/*"
         cp -rf "./database" "$DATABASE_BACKUP"
         echo "Database berhasil diselamatkan"
     fi
