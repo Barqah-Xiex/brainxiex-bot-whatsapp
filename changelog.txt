@@ -1,3 +1,5 @@
+[v2.27.4] - Cuma Fix Beberapa Bug - Sabtu 2026-09-12 18:43:18
+
 [v2.27.3] - Cuma Fix Beberapa Bug - Rabu 2026-09-09 17:10:39
 
 [v2.27.2] - Cuma Fix Beberapa Bug - Rabu 2026-09-09 16:39:21

@@ -1,5 +1,3 @@
-
-
 const cmd = `promote`; 
 const args = ``;
 const category = `Admin Grup`;

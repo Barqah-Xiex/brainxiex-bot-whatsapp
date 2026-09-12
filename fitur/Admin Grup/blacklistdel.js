@@ -1,5 +1,3 @@
-
-
 const cmd = `blacklistdel`; 
 const args = ``;
 const category = `Admin Grup`;

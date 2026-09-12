@@ -1,5 +1,3 @@
-
-
 const cmd = `rejectall`; 
 const args = ``;
 const category = `Admin Grup`;

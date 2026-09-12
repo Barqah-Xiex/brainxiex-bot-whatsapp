@@ -1,5 +1,3 @@
-
-
 const cmd = `kick`; 
 const args = ``;
 const category = `Admin Grup`;

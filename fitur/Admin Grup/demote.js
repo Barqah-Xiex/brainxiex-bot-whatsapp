@@ -1,5 +1,3 @@
-
-
 const cmd = `demote`; 
 const args = ``;
 const category = `Admin Grup`;
