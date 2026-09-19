@@ -27,11 +27,11 @@ async function message(sock, m, store) {
                 renderLargerThumbnail: true,
                 showAdAtrribution: true,
                 title,
-                body: `Powered By xiex.my.id`,
+                body: `Powered By brainxiex.com`,
                 previewType: 0,
                 thumbnail: await media2buffer(thumb),
                 thumbnailUrl: thumb.startsWith(`http`) ? thumb : undefined,
-                sourceUrl: `http://xiex.my.id`,
+                sourceUrl: `https://brainxiex.com`,
                 mediaUrl: `${yt}`,
             }
         },

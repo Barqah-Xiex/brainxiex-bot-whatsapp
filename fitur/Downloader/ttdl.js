@@ -1,2 +1,1 @@
-const js = require(`./tt.js`);
-module.exports = {...js,cmd: `ttdl`};
+module.exports = {...require(`./tt.js`),cmd: `ttdl`};

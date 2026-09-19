@@ -1,2 +1,1 @@
-const js = require(`./yt.js`);
-module.exports = {...js,cmd: `ytdl`};
+module.exports = {...require(`./yt.js`),cmd: `ytdl`};

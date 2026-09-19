@@ -1,2 +1,1 @@
-const js = require(`./reels.js`);
-module.exports = {...js,cmd: `reel`};
+module.exports = {...require(`./reels.js`),cmd: `reel`};

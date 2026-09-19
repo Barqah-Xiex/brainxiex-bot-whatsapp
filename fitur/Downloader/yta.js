@@ -18,7 +18,7 @@ async function message(sock, m, store) {
         await sock.sendPresenceUpdate('available', id);
         return;
     }
-        sock.banner(id, {image:{url:thumb}, caption: `*Sedang mengirim...*\nTitle: ${title.replace("API xiex.my.id\n",'')}\nLink: ${yt}\n\nDowwnload Manual:\n*[Audio]* ${audio}`})
+        sock.banner(id, {image:{url:thumb}, caption: `*Sedang mengirim...*\nTitle: ${title.replace("API brainxiex.com\n",'')}\nLink: ${yt}\n\nDowwnload Manual:\n*[Audio]* ${audio}`})
         const Message = {
             audio: { url: audio },
             ptt: true,
@@ -28,11 +28,11 @@ async function message(sock, m, store) {
                     renderLargerThumbnail: true,
                     showAdAtrribution: true,
                     title,
-                    body: `Powered By xiex.my.id`,
+                    body: `Powered By brainxiex.com`,
                     previewType: 0,
                     thumbnail: await media2buffer(thumb),
                     thumbnailUrl: thumb.startsWith(`http`) ? thumb : undefined,
-                    sourceUrl: `http://xiex.my.id`,
+                    sourceUrl: `http://brainxiex.com`,
                     mediaUrl: `${yt}`,
                 }
             },

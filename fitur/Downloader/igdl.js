@@ -1,2 +1,1 @@
-const js = require(`./ig.js`);
-module.exports = {...js,cmd: `igdl`};
+module.exports = {...require(`./reels.js`),cmd: `igdl`};

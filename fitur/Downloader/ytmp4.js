@@ -1,2 +1,1 @@
-const hidetag_js = require(`./yt.js`);
-module.exports = {...hidetag_js,cmd: `ytmp4`};
+module.exports = {...require(`./yt.js`),cmd: `ytmp4`};

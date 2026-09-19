@@ -19,7 +19,7 @@ async function message(sock, m, store) {
             return;
         }
         sock.banner(id, {image:{url:thumb}, caption: `*Sedang mengirim...*\nTitle: *${title}*\nLink: ${yt}\n\nDowwnload Manual:\n*[Video]* ${link}\n*[Audio]* ${audio}`})
-        await sendMessage(id,{video: {url:link}, caption: `${title.replace("API xiex.my.id\n",'')}\n\napi by xiex.my.id`}, {quoted: m})
+        await sendMessage(id,{video: {url:link}, caption: `${title.replace("API brainxiex.com\n",'')}\n\napi by brainxiex.com`}, {quoted: m})
         await sock.sendPresenceUpdate('available', id);
     }else{
         sendMessage(id, {text: `masukan linknya`},{quoted:m})

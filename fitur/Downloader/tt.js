@@ -18,7 +18,7 @@ async function message(sock, m, store) {
             await sock.sendPresenceUpdate('available', id);
             return;
         }
-        await sendMessage(id,{video: {url}, caption: `*${title}*\n\napi by xiex.my.id`}, {quoted: m})
+        await sendMessage(id,{video: {url}, caption: `*${title}*\n\napi by brainxiex.com`}, {quoted: m})
         await sock.sendPresenceUpdate('available', id);
     }else{
         sendMessage(id, {text: `masukan linknya`},{quoted:m})

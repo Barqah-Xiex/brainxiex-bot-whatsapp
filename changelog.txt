@@ -1,3 +1,5 @@
+[v2.28.1] - Cuma Fix Beberapa Bug - Sabtu 2026-09-19 18:36:58
+
 [v2.28.0] - penambahan fitur cardstyle - Sabtu 2026-09-19 18:19:27
 
 [v2.27.5] - Cuma Fix Beberapa Bug - Sabtu 2026-09-12 19:44:41
