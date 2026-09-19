@@ -11,7 +11,7 @@ async function message(sock, m, store) {
 
     if(!isset(arg)) return nyarios(`mana linknya ?`);
     sock.sendMessage(m.chat,{react: { text: "⏳", key: m.key }});
-    await sendMessage(id,{image: await sock.getBuffer(`${baseURL}/api/image/screenshot`,{apikey,url:arg}), caption: `api by xiex.my.id`});
+    await sendMessage(id,{image: await sock.getBuffer(`${baseURL}/api/image/screenshot`,{apikey,url:arg}), caption: `api by brainxiex.com`});
     sock.sendMessage(m.chat,{react: { text: "✅", key: m.key }});
 }
 module.exports = {cmd,args,category,message};
