@@ -10,9 +10,8 @@ async function message(sock, m, store) {
     const {isset,fs} = func
 
     if(!isset(arg)) return nyarios(`mana linknya ?`);
-    liana.sendMessage(m.chat,{react: { text: "⏳", key: m.key }});
+    sock.sendMessage(m.chat,{react: { text: "⏳", key: m.key }});
     await sendMessage(id,{image: await sock.getBuffer(`${baseURL}/api/image/screenshot`,{apikey,url:arg}), caption: `api by xiex.my.id`});
-    liana.sendMessage(m.chat,{react: { text: "✅", key: m.key }});
-
+    sock.sendMessage(m.chat,{react: { text: "✅", key: m.key }});
 }
 module.exports = {cmd,args,category,message};
