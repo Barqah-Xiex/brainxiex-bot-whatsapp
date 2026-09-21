@@ -39,7 +39,7 @@ backup_database() {
     rm -rf "$DATABASE_BACKUP"
 
     if [ -d "./database" ]; then
-        rm -rf "./database/msg/*"  "./database/lid/*"
+        rm -rf "./database/msg/*" "./database/lid/*"
         cp -rf "./database" "$DATABASE_BACKUP"
         echo "Database berhasil diselamatkan"
     fi
@@ -125,7 +125,7 @@ plugin_list() {
 
     NUMBER=1
 
-    while IFS= read -r PLUGIN; do
+    while IFS= read -r PLUGIN || [ -n "$PLUGIN" ]; do
         [ -n "$PLUGIN" ] || continue
 
         URL=$(plugin_url "$PLUGIN")
@@ -149,7 +149,7 @@ plugin_install_all() {
     echo "Menginstal semua plugin..."
     echo ""
 
-    while IFS= read -r PLUGIN; do
+    while IFS= read -r PLUGIN || [ -n "$PLUGIN" ]; do
         [ -n "$PLUGIN" ] || continue
 
         URL=$(plugin_url "$PLUGIN")
