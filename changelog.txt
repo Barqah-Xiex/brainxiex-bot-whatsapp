@@ -1,3 +1,5 @@
+[v2.29.1] - Cuma Fix Beberapa Bug - Senin 2026-09-21 17:56:48
+
 [v2.29.0] - fix screenshot - Sabtu 2026-09-19 18:59:29
 
 [v2.28.4] - Cuma Fix Beberapa Bug - Sabtu 2026-09-19 18:58:45

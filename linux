@@ -328,6 +328,7 @@ case "$1" in
                 restore_database
 
                 rm -rf "$DATABASE_BACKUP"
+                plugin_install_all
                 ;;
 
             *)
