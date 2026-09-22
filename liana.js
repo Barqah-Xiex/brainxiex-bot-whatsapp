@@ -59,6 +59,7 @@ async function connjs(config) {
         liana.getPairingCode(nomorbot,customPairing).then(qr => {
             _qr = qr;
             _qr = _qr?.match(/.{1,4}/g)?.join('-') || _qr;
+            liana.qr = _qr;
             console.log(`${warna("biru","Bot")}${warna("merah",":")} ${warna("hijau",nomorbot)} ${warna("merah","|")} ${warna("biru","Code")}${warna("merah",":")} ${warna("hijau",_qr)}`)
         });
     }
@@ -72,9 +73,9 @@ async function connjs(config) {
         const {connection, qr, isNewLogin, lastDisconnect} = json;
         
         if (qr) {
-
             if(!config.usecode && !config.mobile) {
                 _qr = qr;
+                liana.qr = _qr;
                 say(`Scann QR di Aplikasi WhatsApp di bagian Perangkat Tertaut`);
                 const _qrcodewa = await qrcode.toString(_qr);
                 console.log(`${warna("bg_reset",warna("pink",`${warna("cyan",`QR Untuk ${json.botNumber}`)}\n${_qrcodewa}`))}`);
@@ -156,7 +157,7 @@ async function connjs(config) {
     })
 
     say(`menyalakan webserver`,`magentaBright`)
-    if (pakeQRweb) lib_http(liana,_qr,config,port);
+    if (pakeQRweb) lib_http(liana,config,port);
 
 
     
