@@ -1,6 +1,6 @@
 {
   "name": "brainxiexbot",
-  "version": "2.29.3",
+  "version": "2.30.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "@hapi/boom": "^10.0.1",
     "awesome-phonenumber": "^7.5.0",
     "axios": "^1.12.1",
-    "baileys": "^7.0.0-rc.2",
+    "baileys": "^7.0.0-rc14",
     "child_process": "^1.0.2",
     "https-proxy-agent": "^7.0.6",
     "image-to-base64": "^2.2.0",
@@ -29,7 +29,7 @@
     "undici": "^7.22.0"
   },
   "allowScripts": {
-    "baileys@7.0.0-rc.6": true,
+    "baileys@7.0.0-rc14": true,
     "protobufjs@6.8.8": true,
     "protobufjs@7.5.4": true,
     "sharp@0.34.3": true
