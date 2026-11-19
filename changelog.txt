@@ -1,3 +1,5 @@
+[v2.30.0] - fix lid - Kamis 2026-11-19 20:06:03
+
 [v2.29.3] - Cuma Fix Beberapa Bug - Selasa 2026-09-22 17:58:54
 
 [v2.29.2] - Cuma Fix Beberapa Bug - Senin 2026-09-21 18:03:27
